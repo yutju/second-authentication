@@ -1,9 +1,12 @@
 package com.example.myapplication2222;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,9 +22,15 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CartActivity extends AppCompatActivity implements KartriderAdapter.OnProductClickListener {
+
+    private static final int REQUEST_CODE_OCR = 1; // OcrActivity 요청 코드
+    private static final String PREFS_NAME = "MyPrefs";
+    private static final String KEY_IS_ADULT = "is_adult";
 
     private RecyclerView recyclerView;
     private KartriderAdapter productAdapter;
@@ -29,6 +38,8 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
     private FirebaseFirestore db;
     private Context context;
     private TextView totalPriceTextView;
+    private Map<String, Boolean> restrictedProducts = new HashMap<>();
+    private boolean isDialogShowing = false; // 다이얼로그 표시 상태
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +53,7 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         productList = new ArrayList<>();
 
-        // isOrderSummary 플래그는 false로 설정 (CartActivity에서는 결제 페이지가 아닌 장바구니 페이지이므로)
+        // ProductAdapter 초기화
         productAdapter = new KartriderAdapter(productList, this, this, false);
         recyclerView.setAdapter(productAdapter);
 
@@ -52,21 +63,25 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
         // FirebaseFirestore 객체 초기화
         db = FirebaseFirestore.getInstance();
 
-        // Firestore에서 상품 데이터 가져오기
+        // Firestore에서 상품 데이터와 미성년자 구매 불가 품목 데이터 가져오기
         fetchProducts();
+        fetchRestrictedProducts();
 
         // Firestore 실시간 업데이트 설정
         setupFirestoreListener();
 
         // '결제' 버튼 설정
         Button payButton = findViewById(R.id.pay_button);
-        payButton.setOnClickListener(v -> {
-            Intent intent = new Intent(CartActivity.this, OrderSummaryActivity.class);
-            intent.putParcelableArrayListExtra("PRODUCT_LIST", new ArrayList<>(productList));
-            intent.putExtra("TOTAL_PRICE", calculateTotalPrice());
-            intent.putExtra("TOTAL_QUANTITY", calculateTotalQuantity());
-            startActivity(intent);
-        });
+        payButton.setOnClickListener(v -> handlePayment());
+    }
+
+    private boolean containsRestrictedProducts() {
+        for (Kartrider product : productList) {
+            if (restrictedProducts.containsKey(product.getId()) && restrictedProducts.get(product.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void fetchProducts() {
@@ -89,6 +104,30 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
                     } else {
                         Log.e("CartActivity", "Error fetching data: " + task.getException());
                         runOnUiThread(() -> Toast.makeText(context, "데이터를 가져오는 데 실패했습니다.", Toast.LENGTH_SHORT).show());
+                    }
+                });
+    }
+
+    private void fetchRestrictedProducts() {
+        db.collection("inventory")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        restrictedProducts.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            // `allow` 필드가 String인지 확인
+                            Object allowObject = document.get("allow");
+                            if (allowObject instanceof String) {
+                                String allow = (String) allowObject;
+                                restrictedProducts.put(document.getId(), "No".equalsIgnoreCase(allow));
+                            } else {
+                                Log.w("CartActivity", "Field 'allow' is not a String or is missing");
+                                // 필드가 없거나 String이 아닌 경우 기본값 처리
+                                restrictedProducts.put(document.getId(), false);
+                            }
+                        }
+                    } else {
+                        Log.e("CartActivity", "Error fetching restricted products: " + task.getException());
                     }
                 });
     }
@@ -168,45 +207,100 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
     }
 
     private void updateTotalPrice() {
-        int totalPrice = calculateTotalPrice();
+        int totalPrice = 0;
+        for (Kartrider product : productList) {
+            if (product != null) {
+                totalPrice += product.getPrice(); // Assuming Kartrider has a getPrice() method
+            }
+        }
         totalPriceTextView.setText("총 결제금액: " + totalPrice + "원");
     }
 
-    private int calculateTotalPrice() {
-        int totalPrice = 0;
-        for (Kartrider product : productList) {
-            totalPrice += product.getPrice() * product.getQuantity();
+    private void handlePayment() {
+        // SharedPreferences에서 성인 인증 상태 로드
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean isAdult = prefs.getBoolean(KEY_IS_ADULT, false);
+
+        if (containsRestrictedProducts()) {
+            if (!isAdult) {
+                // 미성년자 구매 불가 품목이 있는 경우 성인 인증을 요구
+                if (!isDialogShowing) {
+                    showAgeRestrictionDialog();
+                }
+            } else {
+                // 성인 인증이 완료된 경우 결제 처리
+                navigateToOrderSummary();
+            }
+        } else {
+            // 미성년자 구매 불가 품목이 없는 경우 결제 처리
+            navigateToOrderSummary();
         }
-        return totalPrice;
     }
 
-    private int calculateTotalQuantity() {
-        int totalQuantity = 0;
-        for (Kartrider product : productList) {
-            totalQuantity += product.getQuantity();
+    private void showAgeRestrictionDialog() {
+        isDialogShowing = true;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_age_verification, null);
+        builder.setView(dialogView);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        Button confirmButton = dialogView.findViewById(R.id.confirm_button);
+        confirmButton.setOnClickListener(v -> {
+            // OcrActivity를 시작하여 신분증 스캔 및 성인 인증을 수행합니다.
+            Intent intent = new Intent(CartActivity.this, OcrActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_OCR);
+            dialog.dismiss(); // 다이얼로그를 닫습니다.
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_OCR) {
+            if (resultCode == RESULT_OK) {
+                boolean isAdult = data.getBooleanExtra("IS_ADULT", false);
+                SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean(KEY_IS_ADULT, isAdult);
+                editor.apply();
+
+                if (isAdult) {
+                    // 성인 인증이 완료되었으면 인증 완료 메시지 표시 후 결제 처리
+                    Toast.makeText(this, "성인 인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    navigateToOrderSummary();
+                } else {
+                    Toast.makeText(this, "성인 인증에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+            // 다이얼로그가 이미 닫혔으므로 상태를 초기화합니다.
+            isDialogShowing = false;
         }
-        return totalQuantity;
+    }
+
+    private void navigateToOrderSummary() {
+        Intent intent = new Intent(CartActivity.this, OrderSummaryActivity.class);
+        intent.putParcelableArrayListExtra("PRODUCT_LIST", new ArrayList<>(productList));
+        int totalPrice = 0;
+        for (Kartrider product : productList) {
+            totalPrice += product.getPrice(); // Assuming Kartrider has a getPrice() method
+        }
+        intent.putExtra("TOTAL_PRICE", totalPrice);
+        intent.putExtra("TOTAL_QUANTITY", productList.size());
+        startActivity(intent);
+        finish(); // 현재 Activity 종료
     }
 
     @Override
     public void onProductDeleteClick(int position) {
-        Kartrider product = productList.get(position);
-        if (product != null && product.getId() != null && !product.getId().isEmpty()) {
-            db.collection("kartrider").document(product.getId()).delete()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Log.d("CartActivity", "DocumentSnapshot successfully deleted!");
-                        } else {
-                            Log.w("CartActivity", "Error deleting document", task.getException());
-                        }
-                    });
-        } else {
-            Log.e("CartActivity", "Product or Product ID is null or empty. Cannot delete from Firestore.");
-        }
+        // 상품 삭제 처리 로직 추가
+        Toast.makeText(this, "상품 삭제 클릭: " + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onProductQuantityChanged() {
-        updateTotalPrice();
+        // 수량 변경 처리 로직 추가
     }
 }
