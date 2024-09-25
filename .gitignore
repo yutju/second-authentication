@@ -38,3 +38,8 @@ Temporary Internet Files/
 Temp/
 Local/
 *.hprof
+
+# Ignore build directories and APK files
+/app/build/
+*.apk
+*.dex
