@@ -64,6 +64,8 @@ import okhttp3.MultipartBody;
 public class OcrActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 2001;
+    private static final int REQUEST_CODE_CAPTURE_IMAGE = 1001;
+
     private TextView resultTextView;
     private TextView faceResultTextView; // 얼굴 결과 TextView 추가
     private ImageView imageView;

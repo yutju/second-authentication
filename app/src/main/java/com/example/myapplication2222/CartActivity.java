@@ -210,7 +210,7 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
         int totalPrice = 0;
         for (Kartrider product : productList) {
             if (product != null) {
-                totalPrice += product.getPrice() * product.getQuantity(); // 제품 가격에 수량을 곱하여 총 가격에 추가
+                totalPrice += product.getPrice(); // Assuming Kartrider has a getPrice() method
             }
         }
         totalPriceTextView.setText("총 결제금액: " + totalPrice + "원");
@@ -255,25 +255,23 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
         });
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CODE_OCR) { // OcrActivity에서 돌아온 경우
-            if (resultCode == RESULT_OK) { // OcrActivity에서 성공적으로 성인 인증이 완료된 경우
-                boolean isAdult = data.getBooleanExtra("IS_ADULT", false); // 성인 여부를 Intent로부터 가져옴
+        if (requestCode == REQUEST_CODE_OCR) {
+            if (resultCode == RESULT_OK) {
+                boolean isAdult = data.getBooleanExtra("IS_ADULT", false);
                 SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean(KEY_IS_ADULT, isAdult); // 성인 여부를 SharedPreferences에 저장
+                editor.putBoolean(KEY_IS_ADULT, isAdult);
                 editor.apply();
 
                 if (isAdult) {
                     // 성인 인증이 완료되었으면 인증 완료 메시지 표시 후 결제 처리
                     Toast.makeText(this, "성인 인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                    navigateToOrderSummary(); // 주문 요약 화면으로 이동
+                    navigateToOrderSummary();
                 } else {
-                    // 성인 인증에 실패했을 경우 메시지 표시
                     Toast.makeText(this, "성인 인증에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -285,36 +283,24 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
     private void navigateToOrderSummary() {
         Intent intent = new Intent(CartActivity.this, OrderSummaryActivity.class);
         intent.putParcelableArrayListExtra("PRODUCT_LIST", new ArrayList<>(productList));
-
         int totalPrice = 0;
-        int totalQuantity = 0;
-
         for (Kartrider product : productList) {
-            totalPrice += product.getPrice() * product.getQuantity(); // 각 제품의 총 가격 계산
-            totalQuantity += product.getQuantity(); // 각 제품의 수량을 총 수량에 추가
+            totalPrice += product.getPrice(); // Assuming Kartrider has a getPrice() method
         }
-
         intent.putExtra("TOTAL_PRICE", totalPrice);
-        intent.putExtra("TOTAL_QUANTITY", totalQuantity);
+        intent.putExtra("TOTAL_QUANTITY", productList.size());
         startActivity(intent);
         finish(); // 현재 Activity 종료
     }
 
     @Override
     public void onProductDeleteClick(int position) {
-        if (position >= 0 && position < productList.size()) {
-            productList.remove(position);
-            productAdapter.notifyItemRemoved(position);
-            updateTotalPrice();
-            Toast.makeText(this, "상품이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "상품 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
-        }
+        // 상품 삭제 처리 로직 추가
+        Toast.makeText(this, "상품 삭제 클릭: " + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onProductQuantityChanged() {
-        // Adapter에서 수량이 변경될 때마다 호출되는 메서드
-        updateTotalPrice(); // 총 결제 금액 업데이트
+        // 수량 변경 처리 로직 추가
     }
 }
