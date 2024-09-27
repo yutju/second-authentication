@@ -26,6 +26,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+class KalmanFilter {
+    private double q; // 프로세스 노이즈 공분산
+    private double r; // 측정 노이즈 공분산
+    private double x; // 상태 (위치)
+    private double p; // 추정 오차 공분산
+    private double k; // 칼만 이득
+
+    public KalmanFilter(double q, double r) {
+        this.q = q;
+        this.r = r;
+        this.x = 0; // 초기 상태
+        this.p = 1; // 초기 오차 공분산
+    }
+
+    public double update(double measurement) {
+        // 예측 단계
+        p += q;
+
+        // 업데이트 단계
+        k = p / (p + r);
+        x += k * (measurement - x);
+        p *= (1 - k);
+        return x;
+    }
+}
 
 class ExponentialMovingAverage {
     private double alpha;
@@ -61,19 +86,22 @@ public class MapActivity extends AppCompatActivity implements BeaconConsumer {
     private static final int TARGET_MAJOR_VALUE = 10011;
     private static final double A = -70; // RSSI 상수
     private static final double N = 2.0; // 거리 감쇠 지수
-    private static final double ALPHA = 0.2; // 지수평활법의 알파 값
+    private static final double ALPHA = 0.3; // 지수평활법의 알파 값
 
     private static final double MART_WIDTH = 3.0;
     private static final double MART_HEIGHT = 3.0;
     private static final double MAX_DISTANCE = 3.0; // 최대 허용 거리
-
+    private KalmanFilter kalmanFilterX;
+    private KalmanFilter kalmanFilterY;
     private Button runButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
+        // 칼만 필터 초기화
+        kalmanFilterX = new KalmanFilter(0.1, 1);
+        kalmanFilterY = new KalmanFilter(0.1, 1);
         beaconManager = BeaconManager.getInstanceForApplication(this);
         customView = findViewById(R.id.custom_view);
 
@@ -227,9 +255,22 @@ public class MapActivity extends AppCompatActivity implements BeaconConsumer {
             }
         }
 
-        // Return the center of the possible position range
-        return new double[]{(minX + maxX) / 2, (minY + maxY) / 2};
+        // Return a weighted average towards the closest beacon
+        double weightFactor = 0.5; // 가중치 조정 비율 (0 < weightFactor < 1로 조정)
+        double weightedX = closestBeaconPos[0] * (1 - closestDistance / (MAX_DISTANCE * 3 * weightFactor)) +
+                (minX + maxX) / 2 * (closestDistance / (MAX_DISTANCE * 3 * weightFactor));
+        double weightedY = closestBeaconPos[1] * (1 - closestDistance / (MAX_DISTANCE * 3 * weightFactor)) +
+                (minY + maxY) / 2 * (closestDistance / (MAX_DISTANCE * 3 * weightFactor));
+
+
+        // 칼만 필터를 사용하여 위치를 업데이트
+        double kalmanX = kalmanFilterX.update(weightedX);
+        double kalmanY = kalmanFilterY.update(weightedY);
+
+        // 업데이트된 위치 반환
+        return new double[]{kalmanX, kalmanY};
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -246,18 +287,6 @@ public class MapActivity extends AppCompatActivity implements BeaconConsumer {
     }
 
 
-
-
-
-
-    private void showPermissionDeniedDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle("Functionality limited")
-                .setMessage("Since location access has not been granted, this app will not be able to discover beacons or use location services.")
-                .setPositiveButton(android.R.string.ok, null)
-                .setOnDismissListener(dialog -> {})
-                .show();
-    }
 
     @Override
     protected void onResume() {
