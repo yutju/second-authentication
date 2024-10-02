@@ -1,22 +1,18 @@
-// 프로젝트 수준의 build.gradle 파일
-
 buildscript {
     repositories {
         google()
         mavenCentral()
-
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.2'
         classpath 'com.google.gms:google-services:4.3.15'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 }
 
 allprojects {
     repositories {
-        google()
-        mavenCentral()
-        jcenter()
+        mavenCentral()  // jcenter()는 삭제하거나, mavenCentral() 뒤에 둘 수 있습니다.
     }
 }
 

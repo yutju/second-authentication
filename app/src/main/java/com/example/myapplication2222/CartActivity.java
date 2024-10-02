@@ -1,4 +1,4 @@
-package com.example.myapplication2222;
+/*package com.example.myapplication2222;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -303,4 +303,4 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
     public void onProductQuantityChanged() {
         // 수량 변경 처리 로직 추가
     }
-}
+}*/
