@@ -1,4 +1,4 @@
-package com.example.myapplication2222;
+/*package com.example.myapplication2222;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -217,4 +217,4 @@ public class OrderSummaryActivity extends AppCompatActivity {
         startActivity(intent);
         finish(); // 현재 Activity 종료
     }
-}
+}*/

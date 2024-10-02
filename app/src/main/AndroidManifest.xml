@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <uses-feature android:name="android.hardware.camera" android:required="true" />
     <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
@@ -27,6 +28,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication2222"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
         <activity
@@ -54,5 +56,14 @@
             android:name="org.altbeacon.beacon.service.BeaconService"
             android:exported="false"
             tools:node="merge"/>
+        <!-- Bootpay 사용을 위한 메타데이터 -->
+        <meta-data
+            android:name="BOOTPAY_APPLICATION_ID"
+            android:value="66f67f77a3175898bd6e4bfe" />
+
+        <meta-data
+            android:name="BOOTPAY_PRIVATE_KEY"
+            android:value="BQuS/IErpSLPUUAqFFXTz4VA2LP9GBo7rDEOKLcA3Hw=" />
+
     </application>
 </manifest>
