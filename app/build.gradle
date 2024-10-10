@@ -5,11 +5,11 @@ plugins {
 
 android {
     namespace = "com.example.myapplication2222"
-    compileSdk = 34
+    compileSdkVersion = 34
 
     defaultConfig {
         applicationId = "com.example.myapplication2222"
-        minSdk = 24
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -31,20 +31,15 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-
-    repositories {
-        google()
-        mavenCentral()
-
-    }
+    buildToolsVersion '34.0.0'
 }
 
 dependencies {
     // Firebase
-    implementation platform('com.google.firebase:firebase-bom:33.3.0')
+    implementation platform('com.google.firebase:firebase-bom:33.4.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-firestore:25.1.0'
 
     // AndroidX Libraries
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -80,11 +75,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-mlkit-text-recognition-korean:16.0.1'
     implementation 'com.amazonaws:aws-android-sdk-s3:2.22.2'
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-    //implementation 'com.github.User:Repo:Tag'
-    //implementation 'io.bootpay:bootpay-android:4.0.10'
-
-
-
-
+    implementation 'io.github.bootpay:android:4.4.2'
+    implementation 'com.google.android.gms:play-services-auth:20.0.0' // 필요에 따라 다른 서비스 추가
 
 }

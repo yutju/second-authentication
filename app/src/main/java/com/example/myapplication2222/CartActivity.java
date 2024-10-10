@@ -1,4 +1,4 @@
-/*package com.example.myapplication2222;
+package com.example.myapplication2222;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -210,12 +210,67 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
         int totalPrice = 0;
         for (Kartrider product : productList) {
             if (product != null) {
-                totalPrice += product.getPrice(); // Assuming Kartrider has a getPrice() method
+                // 수량을 고려하여 총 금액 계산
+                totalPrice += product.getPrice() * product.getQuantity(); // quantity 필드가 필요합니다.
             }
         }
         totalPriceTextView.setText("총 결제금액: " + totalPrice + "원");
     }
+    @Override
+    public void onProductDeleteClick(int position) {
+        if (position >= 0 && position < productList.size()) {
+            Kartrider productToRemove = productList.get(position);
+            String productId = productToRemove.getId();
 
+            // Firestore에서 삭제
+            db.collection("kartrider").document(productId).delete()
+                    .addOnSuccessListener(aVoid -> {
+                        // 삭제 성공 후 리스트에서 상품 제거
+                        if (position >= 0 && position < productList.size()) { // 위치 확인
+                            productList.remove(position);
+                            productAdapter.notifyItemRemoved(position); // 어댑터에 삭제 알림
+
+                            // 총 결제 금액 업데이트
+                            updateTotalPrice();
+
+                            // 장바구니가 비어 있는지 확인
+                            if (productList.isEmpty()) {
+                                // UI 업데이트 (예: 비어있음 메시지 표시)
+                                Toast.makeText(this, "장바구니가 비어 있습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        // 상품 목록을 다시 불러오기
+                        loadProductList();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "상품 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            Log.e("CartActivity", "Invalid position for deletion: " + position);
+        }
+    }
+
+    private void loadProductList() {
+        db.collection("kartrider")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        productList.clear(); // 기존 목록 비우기
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Kartrider product = document.toObject(Kartrider.class);
+                            productList.add(product);
+                        }
+                        productAdapter.notifyDataSetChanged(); // 어댑터에 데이터 변경 알림
+                    } else {
+                        Log.e("CartActivity", "Error getting documents: ", task.getException());
+                    }
+                });
+    }
+
+    @Override
+    public void onProductQuantityChanged() {
+        updateTotalPrice(); // 총 가격 업데이트 호출 추가
+    }
     private void handlePayment() {
         // SharedPreferences에서 성인 인증 상태 로드
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -293,14 +348,5 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
         finish(); // 현재 Activity 종료
     }
 
-    @Override
-    public void onProductDeleteClick(int position) {
-        // 상품 삭제 처리 로직 추가
-        Toast.makeText(this, "상품 삭제 클릭: " + position, Toast.LENGTH_SHORT).show();
-    }
 
-    @Override
-    public void onProductQuantityChanged() {
-        // 수량 변경 처리 로직 추가
-    }
-}*/
+}

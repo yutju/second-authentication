@@ -1,4 +1,4 @@
-/*package com.example.myapplication2222;
+package com.example.myapplication2222;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,15 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderSummaryActivity extends AppCompatActivity {
 
@@ -31,7 +28,6 @@ public class OrderSummaryActivity extends AppCompatActivity {
     private TextView totalQuantityTextView, totalPriceTextView;
     private FirebaseFirestore firestore;
     private CollectionReference cartCollectionRef;
-    private CollectionReference inventoryCollectionRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +41,6 @@ public class OrderSummaryActivity extends AppCompatActivity {
         // Firebase Firestore 초기화
         firestore = FirebaseFirestore.getInstance();
         cartCollectionRef = firestore.collection("kartrider");
-        inventoryCollectionRef = firestore.collection("inventory");
 
         // 총 수량 및 총 금액 TextView 초기화
         totalQuantityTextView = findViewById(R.id.total_quantity);
@@ -56,7 +51,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
 
         // 결제하기 버튼 설정
         Button payButton = findViewById(R.id.pay_button_summary);
-        payButton.setOnClickListener(v -> processPayment());
+        payButton.setOnClickListener(v -> navigateToPayment());
     }
 
     private void loadCartData() {
@@ -132,89 +127,10 @@ public class OrderSummaryActivity extends AppCompatActivity {
         return spannable;
     }
 
-    private void processPayment() {
-        cartCollectionRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                QuerySnapshot querySnapshot = task.getResult();
-                if (querySnapshot != null) {
-                    ArrayList<Kartrider> cartProducts = new ArrayList<>();
-                    List<Task<Void>> updateTasks = new ArrayList<>();
-
-                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-                        Kartrider cartProduct = document.toObject(Kartrider.class);
-                        if (cartProduct != null) {
-                            cartProduct.setId(document.getId()); // ensure the ID is set
-                            cartProducts.add(cartProduct);
-
-                            // 재고 업데이트 작업 추가
-                            Task<DocumentSnapshot> inventoryTask = inventoryCollectionRef.document(cartProduct.getId()).get();
-                            Task<Void> updateTask = inventoryTask.continueWithTask(inventorySnapshotTask -> {
-                                if (inventorySnapshotTask.isSuccessful()) {
-                                    DocumentSnapshot inventoryDoc = inventorySnapshotTask.getResult();
-                                    if (inventoryDoc.exists()) {
-                                        Long currentStockLong = inventoryDoc.getLong("stock");
-                                        int quantityInCart = cartProduct.getQuantity();
-
-                                        if (currentStockLong != null) {
-                                            int currentStock = currentStockLong.intValue();
-                                            if (currentStock >= quantityInCart) {
-                                                long updatedStock = currentStock - quantityInCart;
-                                                return inventoryDoc.getReference().update("stock", updatedStock);
-                                            } else {
-                                                return Tasks.forException(new Exception("Insufficient stock for: " + cartProduct.getName()));
-                                            }
-                                        } else {
-                                            return Tasks.forException(new Exception("Invalid stock value for: " + cartProduct.getName()));
-                                        }
-                                    } else {
-                                        return Tasks.forException(new Exception("Inventory document does not exist for: " + cartProduct.getName()));
-                                    }
-                                } else {
-                                    return Tasks.forException(inventorySnapshotTask.getException());
-                                }
-                            });
-                            updateTasks.add(updateTask);
-                        }
-                    }
-
-                    // 모든 재고 업데이트 작업이 완료되었을 때
-                    Tasks.whenAllComplete(updateTasks).addOnCompleteListener(updateAllTasks -> {
-                        if (updateAllTasks.isSuccessful()) {
-                            // 장바구니 초기화 작업
-                            clearCart(cartProducts);
-                        } else {
-                            Toast.makeText(OrderSummaryActivity.this, "재고 업데이트 실패", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            } else {
-                Toast.makeText(OrderSummaryActivity.this, "장바구니 데이터 로드 실패", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void clearCart(ArrayList<Kartrider> cartProducts) {
-        List<Task<Void>> deleteTasks = new ArrayList<>();
-
-        for (Kartrider product : cartProducts) {
-            Task<Void> deleteTask = cartCollectionRef.document(product.getId()).delete();
-            deleteTasks.add(deleteTask);
-        }
-
-        // 모든 삭제 작업이 완료되었을 때
-        Tasks.whenAllComplete(deleteTasks).addOnCompleteListener(clearAllTasks -> {
-            if (clearAllTasks.isSuccessful()) {
-                // 결제 성공 화면으로 이동
-                navigateToPaymentSuccess();
-            } else {
-                Toast.makeText(OrderSummaryActivity.this, "장바구니 초기화 실패", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void navigateToPaymentSuccess() {
-        Intent intent = new Intent(OrderSummaryActivity.this, PaymentSuccessActivity.class);
+    private void navigateToPayment() {
+        // PaymentActivity로 이동
+        Intent intent = new Intent(OrderSummaryActivity.this, PaymentActivity.class);
         startActivity(intent);
         finish(); // 현재 Activity 종료
     }
-}*/
+}

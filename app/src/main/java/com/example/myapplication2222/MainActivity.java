@@ -29,14 +29,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // 장바구니 버튼에 클릭 리스너를 설정합니다.
-        /*cartButton.setOnClickListener(new View.OnClickListener() {
+        cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 장바구니 화면으로 이동하는 Intent를 생성합니다.
                 Intent intent = new Intent(MainActivity.this, CartActivity.class);
                 startActivity(intent);  // 액티비티 전환
             }
-        });*/
+        });
 
         // "재고 조회" 버튼 클릭 리스너 설정
         stockButton = findViewById(R.id.stock_button);

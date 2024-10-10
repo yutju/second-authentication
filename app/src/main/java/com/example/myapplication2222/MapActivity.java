@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -265,11 +266,61 @@ public class MapActivity extends AppCompatActivity implements BeaconConsumer {
         }
     }
 
+    private static final double N1 = 2.0; // Path loss exponent for LOS
+    private static final double N2 = 3.3; // Path loss exponent for NLOS
+    private static final double X_C = 3.0; // Breakpoint distance
+
     private double calculateDistance(double rssi, String beaconId) {
         // RSSI 보정 적용
         double calibratedRssi = rssi + rssiCalibration.getOrDefault(beaconId, 0.0);
-        return Math.min(Math.pow(10, (A - calibratedRssi) / (10 * N)), MAX_DISTANCE);
+
+        double distance;
+        if (calibratedRssi >= A - 10 * N1 * Math.log10(X_C)) {
+            // LOS condition
+            distance = Math.pow(10, (A - calibratedRssi) / (10 * N1));
+        } else {
+            // NLOS condition
+            distance = X_C * Math.pow(10, (A - calibratedRssi - 10 * N1 * Math.log10(X_C)) / (10 * N2));
+        }
+
+        // 동적 RSSI 보정
+        updateRssiCalibration(beaconId, distance);
+
+        return Math.min(distance, MAX_DISTANCE);
     }
+
+    private void updateRssiCalibration(String beaconId, double calculatedDistance) {
+        double knownDistance = getKnownDistance(beaconId);
+        double error = knownDistance - calculatedDistance;
+        double currentCalibration = rssiCalibration.getOrDefault(beaconId, 0.0);
+        rssiCalibration.put(beaconId, currentCalibration + error * 0.1); // 0.1은 학습률
+    }
+
+    private double getKnownDistance(String beaconId) {
+        // 비콘의 알려진 위치와 현재 추정된 사용자 위치 사이의 거리 계산
+        double[] beaconPosition;
+        switch (beaconId) {
+            case "beacon1":
+                beaconPosition = new double[]{0, MART_HEIGHT};
+                break;
+            case "beacon2":
+                beaconPosition = new double[]{MART_WIDTH / 2, 0};
+                break;
+            case "beacon3":
+                beaconPosition = new double[]{MART_WIDTH, MART_HEIGHT};
+                break;
+            default:
+                return MAX_DISTANCE; // 알 수 없는 비콘의 경우 최대 거리 반환
+        }
+
+        // 마지막으로 알려진 사용자 위치 사용
+        double[] userPosition = lastPosition != null ? lastPosition : new double[]{MART_WIDTH / 2, MART_HEIGHT / 2};
+
+        // 유클리드 거리 계산
+        return Math.sqrt(Math.pow(beaconPosition[0] - userPosition[0], 2) +
+                Math.pow(beaconPosition[1] - userPosition[1], 2));
+    }
+
     private double calculateDistance(double[] p1, double[] p2) {
         return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
     }
@@ -332,7 +383,25 @@ public class MapActivity extends AppCompatActivity implements BeaconConsumer {
             if (beaconDistances.size() == 3) {
                 double[] userPosition = calculateUserPosition(beaconDistances);
                 if (userPosition != null) {
+                    // 칼만 필터 적용
+                    userPosition[0] = kalmanFilterX.update(userPosition[0]);
+                    userPosition[1] = kalmanFilterY.update(userPosition[1]);
+
                     if (lastPosition == null || calculateDistance(lastPosition, userPosition) > POSITION_UPDATE_THRESHOLD) {
+                        // 이동 제한 및 부드러운 전환
+                        if (lastPosition != null) {
+                            double distanceMoved = calculateDistance(lastPosition, userPosition);
+                            double maxAllowedDistance = 0.1; // 최대 허용 이동 거리 (m)
+                            double alpha = Math.min(1.0, maxAllowedDistance / distanceMoved);
+
+                            userPosition[0] = lastPosition[0] + (userPosition[0] - lastPosition[0]) * alpha;
+                            userPosition[1] = lastPosition[1] + (userPosition[1] - lastPosition[1]) * alpha;
+                        }
+
+                        // 위치를 마트 경계 내로 제한
+                        userPosition[0] = Math.max(0, Math.min(userPosition[0], MART_WIDTH));
+                        userPosition[1] = Math.max(0, Math.min(userPosition[1], MART_HEIGHT));
+
                         lastPosition = userPosition;
                         float userXScreen = (float) (userPosition[0] / MART_WIDTH * customView.getWidth());
                         float userYScreen = (float) ((MART_HEIGHT - userPosition[1]) / MART_HEIGHT * customView.getHeight());
@@ -345,6 +414,11 @@ public class MapActivity extends AppCompatActivity implements BeaconConsumer {
                         sb.append("사용자 위치: (")
                                 .append(String.format("%.2f", userPosition[0])).append(", ")
                                 .append(String.format("%.2f", userPosition[1])).append(")\n");
+
+                        // RSSI 보정 업데이트
+                        for (Map.Entry<Integer, Double> entry : beaconDistances.entrySet()) {
+                            updateRssiCalibration("beacon" + entry.getKey(), entry.getValue());
+                        }
                     }
                 }
             }
@@ -355,27 +429,40 @@ public class MapActivity extends AppCompatActivity implements BeaconConsumer {
             }
 
             customView.invalidate();
-            sendEmptyMessageDelayed(0, 200);
+            sendEmptyMessageDelayed(0, 250); // 갱신 간격을 0.5초로 변경
         }
     };
+
 
     // 사용자 위치 계산
     private double[] calculateUserPosition(Map<Integer, Double> distances) {
         double[][] beacons = {{0, MART_HEIGHT}, {MART_WIDTH / 2, 0}, {MART_WIDTH, MART_HEIGHT}};
 
-        // 파티클 필터를 사용한 위치 추정
-        double[] particlePosition = particleFilter.update(distances);
-
         // 삼변측량법을 사용한 위치 추정
         double[] trilaterationPosition = trilaterate(distances);
 
-        // 칼만 필터를 사용하여 두 추정치를 결합
-        double kalmanX = kalmanFilterX.update(trilaterationPosition[0]);
-        double kalmanY = kalmanFilterY.update(trilaterationPosition[1]);
+        // 파티클 필터 적용
+        double[] particleFilterPosition = particleFilter.update(distances);
+
+        // 삼변측량과 파티클 필터 결과 결합
+        double userX = (trilaterationPosition[0] + particleFilterPosition[0]) / 2;
+        double userY = (trilaterationPosition[1] + particleFilterPosition[1]) / 2;
 
         // 최종 위치를 마트 경계 내로 제한
-        kalmanX = Math.max(0, Math.min(kalmanX, MART_WIDTH));
-        kalmanY = Math.max(0, Math.min(kalmanY, MART_HEIGHT));
+        userX = Math.max(0, Math.min(userX, MART_WIDTH));
+        userY = Math.max(0, Math.min(userY, MART_HEIGHT));
+
+        // 칼만 필터 적용
+        userX = kalmanFilterX.update(userX);
+        userY = kalmanFilterY.update(userY);
+
+        // 이동 제한 적용
+        if (lastPosition != null) {
+            double alpha = 0.3; // 가중치 계수 (0.0 ~ 1.0)
+            userX = alpha * userX + (1 - alpha) * lastPosition[0];
+            userY = alpha * userY + (1 - alpha) * lastPosition[1];
+        }
+
 
         // 거리 기반 가중치 적용
         if (distances.size() == 3) {
@@ -388,27 +475,41 @@ public class MapActivity extends AppCompatActivity implements BeaconConsumer {
                 double distance = entry.getValue();
                 double[] beaconPos = beacons[minor - 1];
 
+                // 비콘과의 거리 0.5m 이내일 때
+
                 if (distance <= 0.5) {
-                    // 비콘 쪽으로 가중치를 주기
-                    totalX += beaconPos[0] / Math.pow(distance, 2); // 거리에 대한 가중치 (역제곱)
-                    totalY += beaconPos[1] / Math.pow(distance, 2);
-                    totalWeight += 1 / Math.pow(distance, 2);
-                } else {
-                    // 중앙으로 가중치를 조금 주기
-                    totalX += MART_WIDTH / 2 * 0.1; // 중앙 가중치의 10%
-                    totalY += MART_HEIGHT / 2 * 0.1; // 중앙 가중치의 10%
-                    totalWeight += 0.1; // 중앙 가중치의 10%
+                    double weight = 0.01; // 일정한 낮은 가중치 사용
+
+                    totalX += beaconPos[0] * weight;
+                    totalY += beaconPos[1] * weight;
+                    totalWeight += weight;
+                }
+
+
+                else {
+                    // 비콘과의 거리가 0.5m를 초과할 때는 이전 위치와 비콘 위치에 기반하여 조정
+                    double weight = 0.2; // 중앙 가중치 20%
+                    totalX += userX * 0.8 + beaconPos[0] * weight; // 이전 위치에 더 많은 비중을 두기
+                    totalY += userY * 0.8 + beaconPos[1] * weight; // 이전 위치에 더 많은 비중을 두기
+                    totalWeight += 1.0; // 고정 가중치 추가
                 }
             }
 
+            // 가중치가 0보다 큰 경우 최종 위치 계산
             if (totalWeight > 0) {
-                kalmanX = totalX / totalWeight;
-                kalmanY = totalY / totalWeight;
+                userX = totalX / totalWeight;
+                userY = totalY / totalWeight;
             }
         }
+        userX = kalmanFilterX.update(userX);
+        userY = kalmanFilterY.update(userY);
+        return new double[]{userX, userY};
 
-        return new double[]{kalmanX, kalmanY};
     }
+
+
+
+
 
 
 
@@ -441,6 +542,7 @@ public class MapActivity extends AppCompatActivity implements BeaconConsumer {
         }
 
         return centroid;
+
     }
 
 

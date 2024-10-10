@@ -31,10 +31,6 @@ public class KartriderAdapter extends RecyclerView.Adapter<KartriderAdapter.Prod
         db = FirebaseFirestore.getInstance();
     }
 
-    // 나머지 코드 유지...
-
-
-
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -94,7 +90,6 @@ public class KartriderAdapter extends RecyclerView.Adapter<KartriderAdapter.Prod
             }
         }
 
-
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
@@ -104,6 +99,7 @@ public class KartriderAdapter extends RecyclerView.Adapter<KartriderAdapter.Prod
 
             int viewId = v.getId();
             if (viewId == R.id.deleteButton) {
+                // 삭제 클릭 시
                 if (onProductClickListener != null) {
                     onProductClickListener.onProductDeleteClick(position);
                 }
