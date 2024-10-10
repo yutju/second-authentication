@@ -1,40 +1,36 @@
-/*package com.example.myapplication2222;
+package com.example.myapplication2222;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication2222.Kartrider;
-import com.example.myapplication2222.MainActivity;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.WriteBatch;
-import com.bootpay.android.Bootpay; // 부트페이 SDK import
-import com.bootpay.android.model.Payment; // 필요한 모델 import
-import com.bootpay.android.listener.OnBootpayCallback;
+import com.google.firebase.firestore.Transaction;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
+import java.util.ArrayList;
 
 public class PaymentSuccessActivity extends AppCompatActivity {
-
-    private static final int DELAY_MILLIS = 2000; // 2초 지연
-    private static final String PREFS_NAME = "MyPrefs";
-    private static final String KEY_IS_ADULT = "is_adult";
-
+    private static final String TAG = "PaymentSuccessActivity";
     private FirebaseFirestore firestore;
     private CollectionReference cartCollectionRef;
     private CollectionReference inventoryCollectionRef;
-    private boolean isProcessing = true; // 처리 중인지 여부
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_success);
 
@@ -42,151 +38,126 @@ public class PaymentSuccessActivity extends AppCompatActivity {
         cartCollectionRef = firestore.collection("kartrider");
         inventoryCollectionRef = firestore.collection("inventory");
 
-        // 장바구니의 총 금액 계산 후 결제 시작
-        calculateTotalAndInitiatePayment();
-        // 성인 인증 상태 초기화
-        resetAdultStatus();
-    }
-
-    private void calculateTotalAndInitiatePayment() {
-        cartCollectionRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                double totalAmount = 0.0;
-                List<Task<Void>> updateTasks = new ArrayList<>();
-                WriteBatch batch = firestore.batch();
-
-                // 장바구니의 총 금액 계산
-                for (DocumentSnapshot document : task.getResult().getDocuments()) {
-                    Kartrider cartProduct = document.toObject(Kartrider.class);
-                    if (cartProduct != null) {
-                        totalAmount += cartProduct.getPrice() * cartProduct.getQuantity(); // 가격 * 수량
-                    }
-                }
-
-                // 결제 요청
-                initiatePayment(totalAmount, batch);
-            } else {
-                Log.e("PaymentSuccess", "Failed to retrieve cart data", task.getException());
-            }
-        });
-    }
-
-    private void initiatePayment(double totalAmount, WriteBatch batch) {
-        Bootpay.init("66f67f77a3175898bd6e4bfe") // 부트페이 애플리케이션 ID
-                .setContext(this)
-                .setOrderName("장바구니 결제") // 주문 이름
-                .setPrice(totalAmount) // 결제 금액
-                .setPg("test") // 결제 PG 설정
-                .setOnSuccessListener(new OnBootpayCallback() {
-                    @Override
-                    public void onSuccess(String response) {
-                        Log.d("Payment", "Payment Success: " + response);
-                        // 재고 업데이트 및 장바구니 초기화
-                        updateInventoryAndClearCart(batch);
-                    }
-                })
-                .setOnErrorListener(error -> {
-                    Log.e("Payment", "Payment Error: " + error);
-                })
-                .setOnCancelListener(response -> {
-                    Log.d("Payment", "Payment Cancelled: " + response);
-                })
-                .requestPayment();
-    }
-
-    private void updateInventoryAndClearCart(WriteBatch batch) {
-        cartCollectionRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Log.d("PaymentSuccess", "Retrieved cart data successfully.");
-
-                for (DocumentSnapshot document : task.getResult().getDocuments()) {
-                    Kartrider cartProduct = document.toObject(Kartrider.class);
-                    if (cartProduct != null && cartProduct.getId() != null) {
-                        String productId = cartProduct.getId();
-                        int quantityInCart = cartProduct.getQuantity();
-
-                        Log.d("PaymentSuccess", "Processing product ID: " + productId + " with quantity: " + quantityInCart);
-
-                        DocumentReference inventoryDocRef = inventoryCollectionRef.document(productId);
-                        inventoryDocRef.get().addOnCompleteListener(inventoryTask -> {
-                            if (inventoryTask.isSuccessful()) {
-                                DocumentSnapshot inventoryDoc = inventoryTask.getResult();
-                                if (inventoryDoc.exists()) {
-                                    Long currentStockLong = inventoryDoc.getLong("stock");
-                                    if (currentStockLong != null) {
-                                        int currentStock = currentStockLong.intValue();
-                                        if (currentStock >= quantityInCart) {
-                                            long updatedStock = currentStock - quantityInCart;
-                                            batch.update(inventoryDocRef, "stock", updatedStock);
-                                            Log.d("PaymentSuccess", "Stock updated for product ID: " + productId);
-                                        } else {
-                                            Log.w("PaymentSuccess", "Insufficient stock for product ID: " + productId);
-                                        }
-                                    } else {
-                                        Log.w("PaymentSuccess", "Current stock is null for product ID: " + productId);
-                                    }
-                                } else {
-                                    Log.w("PaymentSuccess", "Inventory document does not exist for product ID: " + productId);
-                                }
-                            } else {
-                                Log.e("PaymentSuccess", "Failed to get inventory document for product ID: " + productId, inventoryTask.getException());
-                            }
-                        });
-
-                        // Add cart item deletion to batch
-                        batch.delete(cartCollectionRef.document(document.getId()));
-                        Log.d("PaymentSuccess", "Cart item scheduled for deletion with document ID: " + document.getId());
-                    } else {
-                        Log.w("PaymentSuccess", "Cart product is null or has an invalid ID.");
-                    }
-                }
-
-                // Commit the batch write after all updates are scheduled
-                batch.commit().addOnCompleteListener(batchCommitTask -> {
-                    if (batchCommitTask.isSuccessful()) {
-                        Log.d("PaymentSuccess", "Batch commit successful.");
-                        isProcessing = false; // Processing is complete
-                        // Delay before starting MainActivity
-                        new Handler().postDelayed(() -> {
-                            Intent intent = new Intent(PaymentSuccessActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }, DELAY_MILLIS);
-                    } else {
-                        Log.e("PaymentSuccess", "Failed to commit batch", batchCommitTask.getException());
-                        isProcessing = false; // Processing is complete even on failure
-                    }
-                });
-            } else {
-                Log.e("PaymentSuccess", "Failed to retrieve cart data", task.getException());
-                isProcessing = false; // Processing is complete even on failure
-            }
-        });
-    }
-
-    private void resetAdultStatus() {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(KEY_IS_ADULT, false); // Reset adult status
-        editor.apply();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (isProcessing) {
-            // Additional logic to handle activity pausing during processing
-            Log.d("PaymentSuccess", "Activity paused during processing.");
+        String paymentData = getIntent().getStringExtra("paymentData");
+        if (paymentData != null) {
+            processPaymentSuccess(paymentData);
+        } else {
+            Log.e(TAG, "Payment data is null");
+            showErrorMessage("결제 데이터가 없습니다.");
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (isProcessing) {
-            // Additional logic to handle activity stopping during processing
-            Log.d("PaymentSuccess", "Activity stopped during processing.");
+    private void processPaymentSuccess(String paymentData) {
+        try {
+            JSONObject jsonObject = new JSONObject(paymentData);
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            String status = dataObject.getString("status");
+
+            if ("1".equals(status)) {
+                updateInventoryAndClearCart();
+            } else {
+                String errorMessage = dataObject.optString("error_message", "결제 실패");
+                showErrorMessage(errorMessage);
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, "JSON 파싱 오류", e);
+            showErrorMessage("결제 데이터 파싱 오류");
         }
+    }
+
+    private void updateInventoryAndClearCart() {
+        cartCollectionRef.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            List<Kartrider> cartItems = new ArrayList<>();
+            for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                Kartrider cartItem = document.toObject(Kartrider.class);
+                if (cartItem != null) {
+                    cartItem.setId(document.getId()); // 문서 ID 수동 설정
+                    cartItems.add(cartItem);
+                }
+            }
+            updateInventory(cartItems);
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "장바구니 데이터 가져오기 실패", e);
+            showErrorMessage("장바구니 데이터를 가져오는데 실패했습니다.");
+        });
+    }
+
+    private void updateInventory(List<Kartrider> cartItems) {
+        firestore.runTransaction((Transaction.Function<Void>) transaction -> {
+            for (Kartrider cartItem : cartItems) {
+                String itemId = cartItem.getId();
+                if (itemId == null || itemId.isEmpty()) {
+                    Log.e(TAG, "상품 ID가 null 또는 빈 문자열입니다: " + cartItem.toString());
+                    continue; // 잘못된 ID는 건너뜁니다.
+                }
+
+                DocumentReference inventoryDocRef = inventoryCollectionRef.document(itemId);
+                DocumentReference cartItemDocRef = cartCollectionRef.document(itemId);
+
+                Long currentStock = transaction.get(inventoryDocRef).getLong("stock");
+                if (currentStock == null) {
+                    Log.e(TAG, "재고 정보가 null입니다: " + itemId);
+                    throw new IllegalStateException("재고 정보가 없습니다: " + itemId);
+                }
+
+                long newStock = currentStock - cartItem.getQuantity();
+                if (newStock < 0) {
+                    Log.e(TAG, "재고가 부족합니다: " + itemId);
+                    throw new IllegalStateException("재고가 부족합니다: " + itemId);
+                }
+
+                transaction.update(inventoryDocRef, "stock", newStock);
+                transaction.delete(cartItemDocRef);
+            }
+            return null;
+        }).addOnSuccessListener(aVoid -> {
+            Log.d(TAG, "재고 업데이트 및 장바구니 초기화 성공");
+            clearAdultVerification();
+            showSuccessMessage();
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "재고 업데이트 또는 장바구니 초기화 실패", e);
+            showErrorMessage("재고 업데이트 또는 장바구니 초기화에 실패했습니다.");
+        });
+    }
+
+    private void clearAdultVerification() {
+        getSharedPreferences("app_preferences", MODE_PRIVATE)
+                .edit()
+                .putBoolean("isAdult", false)
+                .apply();
+        Log.d(TAG, "성인인증 정보 초기화 완료");
+    }
+
+    private void showSuccessMessage() {
+        runOnUiThread(() -> {
+            ImageView successImage = findViewById(R.id.payment_success_image);
+            successImage.setImageResource(R.drawable.payment_success_image);
+
+            TextView successMessage = findViewById(R.id.payment_success_message);
+            successMessage.setText("결제가 성공적으로 완료되었습니다.");
+
+            // 3초 후 메인 액티비티로 이동
+            new Handler().postDelayed(this::finishActivity, 3000);
+        });
+    }
+
+    private void showErrorMessage(String message) {
+        runOnUiThread(() -> {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            finishActivity();
+        });
+    }
+
+    private void finishActivity() {
+        Intent intent = new Intent(PaymentSuccessActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishActivity();
     }
 }
-*/

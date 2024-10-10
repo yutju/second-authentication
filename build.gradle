@@ -5,17 +5,15 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.2'
-        classpath 'com.google.gms:google-services:4.3.15'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.google.gms:google-services:4.4.2'
+
     }
 }
 
 allprojects {
     repositories {
-        mavenCentral()  // jcenter()는 삭제하거나, mavenCentral() 뒤에 둘 수 있습니다.
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

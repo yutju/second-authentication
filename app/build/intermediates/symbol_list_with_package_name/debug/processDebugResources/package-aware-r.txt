@@ -1335,6 +1335,7 @@ attr yearStyle
 attr yearTodayStyle
 bool abc_action_bar_embed_tabs
 bool abc_config_actionMenuItemAllCaps
+bool enable_debug_messages
 bool mtrl_btn_textappearance_all_caps
 color abc_background_cache_hint_selector_material_dark
 color abc_background_cache_hint_selector_material_light
@@ -1369,6 +1370,7 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+color black12
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
 color bright_foreground_inverse_material_dark
@@ -3153,6 +3155,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable payment_success_image
 drawable smartshoppingcart
 drawable test_level_drawable
 drawable tooltip_frame_dark
@@ -3420,6 +3423,7 @@ id jumpToEnd
 id jumpToStart
 id labeled
 id layout
+id layout_progress
 id left
 id leftToRight
 id legacy
@@ -3544,6 +3548,7 @@ id path
 id pathRelative
 id pay_button
 id pay_button_summary
+id payment_success_image
 id payment_success_message
 id peekHeight
 id percent
@@ -3559,6 +3564,7 @@ id price_text
 id product_banner
 id product_info_container
 id product_info_text
+id progress
 id progressBar
 id progress_circular
 id progress_horizontal
@@ -3715,6 +3721,7 @@ id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
+id webview
 id west
 id wide
 id withText
@@ -3846,6 +3853,7 @@ layout activity_main
 layout activity_map
 layout activity_ocr
 layout activity_order_summary
+layout activity_payment
 layout activity_payment_success
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
@@ -3870,6 +3878,7 @@ layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_inventory
 layout item_kartrider
+layout layout_bootpay_dialog
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -4009,6 +4018,7 @@ string common_signin_button_text
 string common_signin_button_text_long
 string copy_toast_msg
 string default_web_client_id
+string define_EncryptedPreferences
 string error_a11y_label
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
@@ -4026,6 +4036,15 @@ string google_storage_bucket
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string item_view_role_description
+string library_EncryptedPreferences_author
+string library_EncryptedPreferences_authorWebsite
+string library_EncryptedPreferences_isOpenSource
+string library_EncryptedPreferences_libraryDescription
+string library_EncryptedPreferences_libraryName
+string library_EncryptedPreferences_libraryVersion
+string library_EncryptedPreferences_libraryWebsite
+string library_EncryptedPreferences_licenseId
+string library_EncryptedPreferences_repositoryLink
 string m3_exceed_max_badge_text_suffix
 string m3_ref_typeface_brand_medium
 string m3_ref_typeface_brand_regular
@@ -5429,3 +5448,4 @@ xml backup_rules
 xml data_extraction_rules
 xml ga_ad_services_config
 xml image_share_filepaths
+xml network_security_config

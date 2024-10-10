@@ -23,3 +23,6 @@
 -keep class * extends android.app.Service
 -keep class * extends android.content.BroadcastReceiver
 -keep class * extends android.content.ContentProvider
+
+-keep class kr.co.bootpay.android.**  { *; }
+
