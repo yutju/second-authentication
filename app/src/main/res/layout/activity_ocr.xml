@@ -37,23 +37,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="8dp"/>
 
-    <!-- 얼굴 촬영을 위한 새로운 ImageView -->
-    <ImageView
-        android:id="@+id/faceImageView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#E0E0E0"
-        android:scaleType="fitCenter"
-        android:visibility="gone"/>
-
-    <!-- 신분증 촬영 확인 버튼 -->
-    <Button
-        android:id="@+id/confirmFaceButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="네"
-        android:visibility="gone"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,17 +67,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"/>
-
-    <!-- 얼굴 캡처 후 결과를 표시하기 위한 TextView 추가 -->
-    <TextView
-        android:id="@+id/faceResultTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="얼굴 결과"
-        android:textSize="16sp"
-        android:textColor="#000"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
         android:visibility="gone"/>
 </LinearLayout>

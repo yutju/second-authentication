@@ -3297,7 +3297,6 @@ id closest
 id collapseActionView
 id compatible
 id compress
-id confirmFaceButton
 id confirm_button
 id constraint
 id container
@@ -3351,6 +3350,9 @@ id easeInOut
 id easeOut
 id east
 id edge
+id editTextEmail
+id editTextPassword
+id editTextUsername
 id edit_query
 id edit_text_id
 id elastic
@@ -3363,8 +3365,6 @@ id escape
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
-id faceImageView
-id faceResultTextView
 id fade
 id fill
 id fillCenter
@@ -3433,7 +3433,9 @@ id line3
 id linear
 id listMode
 id list_item
+id login_button
 id m3_side_sheet
+id manage_profile_button
 id map_button
 id map_image
 id marquee
@@ -3618,6 +3620,8 @@ id shortcut
 id showCustom
 id showHome
 id showTitle
+id signup_button
+id signup_text
 id sin
 id skipCollapsed
 id skipped
@@ -3849,12 +3853,14 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_cart
 layout activity_inventory
+layout activity_login
 layout activity_main
 layout activity_map
 layout activity_ocr
 layout activity_order_summary
 layout activity_payment
 layout activity_payment_success
+layout activity_signup
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
 layout custom_dialog

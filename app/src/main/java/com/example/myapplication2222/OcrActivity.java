@@ -32,11 +32,9 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.mlkit.vision.common.InputImage;
-import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 
 import java.io.File;
@@ -46,20 +44,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.MultipartBody;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class OcrActivity extends AppCompatActivity {
 
@@ -67,9 +56,7 @@ public class OcrActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_CAPTURE_IMAGE = 1001;
 
     private TextView resultTextView;
-    private TextView faceResultTextView; // 얼굴 결과 TextView 추가
     private ImageView imageView;
-    private ImageView faceImageView;
     private ProgressBar progressBar;
     private PreviewView previewView;
     private ImageCapture imageCapture;
@@ -86,9 +73,7 @@ public class OcrActivity extends AppCompatActivity {
         Button captureButton = findViewById(R.id.captureButton);
         Button recaptureButton = findViewById(R.id.recaptureButton);
         resultTextView = findViewById(R.id.resultTextView);
-        faceResultTextView = findViewById(R.id.faceResultTextView); // 얼굴 결과 TextView 초기화
         imageView = findViewById(R.id.imageView);
-        faceImageView = findViewById(R.id.faceImageView);
         progressBar = findViewById(R.id.progressBar);
         previewView = findViewById(R.id.previewView);
 
@@ -133,12 +118,6 @@ public class OcrActivity extends AppCompatActivity {
         imageViewLayoutParams.width = viewWidth;
         imageViewLayoutParams.height = viewHeight;
         imageView.setLayoutParams(imageViewLayoutParams);
-
-        // 얼굴 인식 결과 이미지뷰 설정
-        ViewGroup.LayoutParams faceImageViewLayoutParams = faceImageView.getLayoutParams();
-        faceImageViewLayoutParams.width = viewWidth;
-        faceImageViewLayoutParams.height = viewHeight;
-        faceImageView.setLayoutParams(faceImageViewLayoutParams);
     }
 
     // 모든 권한이 부여되었는지 확인
@@ -239,42 +218,60 @@ public class OcrActivity extends AppCompatActivity {
                             boolean isAdult = !isMinor(dob);
                             runOnUiThread(() -> {
                                 resultTextView.setText(isAdult ? "성인입니다." : "미성년자입니다.");
-                                faceResultTextView.setVisibility(View.VISIBLE); // 얼굴 결과 TextView 보이기
+                                Intent resultIntent = new Intent();
+                                resultIntent.putExtra("IS_ADULT", isAdult);
+                                setResult(RESULT_OK, resultIntent);
+                                finish();
                             });
-                            sendResult(isAdult);
-                            // 얼굴 이미지 처리
-                            processFaceImage(); // 얼굴 이미지 비교 처리
                         } else {
                             runOnUiThread(() -> {
                                 resultTextView.setText("생년월일을 찾을 수 없습니다.");
-                                faceResultTextView.setVisibility(View.GONE); // 얼굴 결과 TextView 숨기기
+                                setResult(RESULT_CANCELED);
+                                finish();
                             });
-                            sendResult(false);
                         }
                     })
                     .addOnFailureListener(e -> {
                         Log.e("OcrActivity", "텍스트 인식 실패", e);
-                        runOnUiThread(() -> resultTextView.setText("텍스트 인식 실패"));
+                        runOnUiThread(() -> {
+                            resultTextView.setText("텍스트 인식 실패");
+                            setResult(RESULT_CANCELED);
+                            finish();
+                        });
                     });
         } catch (IOException e) {
             Log.e("OcrActivity", "이미지 처리 실패", e);
-            runOnUiThread(() -> resultTextView.setText("이미지 처리 실패"));
+            runOnUiThread(() -> {
+                resultTextView.setText("이미지 처리 실패");
+                setResult(RESULT_CANCELED);
+                finish();
+            });
         }
     }
+
     // 생년월일 찾기
     private String findDateOfBirth(String text) {
-        // 한국의 생년월일 형식(YYYY.MM.DD 또는 YYYY-MM-DD) 정규 표현식
-        Pattern pattern = Pattern.compile("(\\d{4}[.\\-]\\d{1,2}[.\\-]\\d{1,2})");
+        // 한국의 생년월일 형식(YYMMDD) 정규 표현식, 면허증의 경우 맨 위 6자리는 제외
+        Pattern pattern = Pattern.compile("(\\d{2}[01]\\d[0-3]\\d)");
         Matcher matcher = pattern.matcher(text);
         if (matcher.find()) {
-            return matcher.group(1);
+            String year = matcher.group(1).substring(0, 2);
+            int currentYear = Calendar.getInstance().get(Calendar.YEAR) % 100;
+            int parsedYear = Integer.parseInt(year);
+            String fullYear;
+            if (parsedYear <= currentYear && (currentYear - parsedYear) <= 90) {
+                fullYear = "20" + year;
+            } else {
+                fullYear = "19" + year;
+            }
+            return fullYear + matcher.group(1).substring(2); // YY를 19YY 또는 20YY로 변환
         }
         return null;
     }
 
     // 성인 여부 확인
     private boolean isMinor(String dob) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         try {
             Date birthDate = sdf.parse(dob);
             if (birthDate != null) {
@@ -286,146 +283,6 @@ public class OcrActivity extends AppCompatActivity {
             Log.e("OcrActivity", "생년월일 파싱 실패", e);
         }
         return true; // 파싱 실패 시 미성년자로 간주
-    }
-
-    // 결과 전송 처리
-    private void sendResult(boolean isAdult) {
-        // 결과를 서버에 전송하거나 처리하는 로직 추가
-        Log.d("OcrActivity", "성인 여부: " + (isAdult ? "성인" : "미성년자"));
-    }
-
-    // 얼굴 캡처 및 비교를 위한 메서드
-    private void processFaceImage() {
-        Uri faceImageUri = Uri.fromFile(photoFile); // 얼굴 이미지를 URI로 가져옴
-        uploadImage(faceImageUri, new ImageUploadCallback() {
-            @Override
-            public void onUploadSuccess(String faceImageUrl) {
-                // 신분증 이미지도 업로드
-                uploadImage(Uri.fromFile(photoFile), new ImageUploadCallback() {
-                    @Override
-                    public void onUploadSuccess(String idImageUrl) {
-                        compareFaces(idImageUrl, faceImageUrl);
-                    }
-
-                    @Override
-                    public void onUploadFailure() {
-                        // 신분증 이미지 업로드 실패 처리
-                    }
-                });
-            }
-
-            @Override
-            public void onUploadFailure() {
-                // 얼굴 이미지 업로드 실패 처리
-            }
-        });
-    }
-
-    // 이미지 업로드 메서드
-    private void uploadImage(Uri imageUri, ImageUploadCallback callback) {
-        String apiKey = "YOUR_API_KEY"; // API 키
-        String apiSecret = "YOUR_API_SECRET"; // API 비밀
-
-        OkHttpClient client = new OkHttpClient();
-        File imageFile = new File(imageUri.getPath());
-
-        // 멀티파트 요청 본문 생성
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("api_key", apiKey)
-                .addFormDataPart("api_secret", apiSecret)
-                .addFormDataPart("image_file", imageFile.getName(),
-                        RequestBody.create(MediaType.parse("image/jpeg"), imageFile))
-                .build();
-
-        // 요청 생성
-        Request request = new Request.Builder()
-                .url("https://api-us.faceplusplus.com/facepp/v3/upload")
-                .post(requestBody)
-                .build();
-
-        // 요청 실행
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                callback.onUploadFailure();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    callback.onUploadFailure();
-                    return;
-                }
-                String responseBody = response.body().string();
-                JsonObject jsonResponse = JsonParser.parseString(responseBody).getAsJsonObject();
-                String imageUrl = jsonResponse.get("url").getAsString(); // URL 가져오기
-                callback.onUploadSuccess(imageUrl);
-            }
-        });
-    }
-
-    // 얼굴 비교 메서드
-    private void compareFaces(String idImageUrl, String faceImageUrl) {
-        String apiKey = "YOUR_API_KEY"; // API 키
-        String apiSecret = "YOUR_API_SECRET"; // API 비밀
-
-        OkHttpClient client = new OkHttpClient();
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("api_key", apiKey)
-                .addFormDataPart("api_secret", apiSecret)
-                .addFormDataPart("image_url1", idImageUrl)
-                .addFormDataPart("image_url2", faceImageUrl)
-                .build();
-
-        Request request = new Request.Builder()
-                .url("https://api-us.faceplusplus.com/facepp/v3/compare")
-                .post(requestBody)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("OcrActivity", "얼굴 비교 실패", e);
-                runOnUiThread(() -> {
-                    faceResultTextView.setText("얼굴 비교 실패");
-                    faceResultTextView.setVisibility(View.VISIBLE);
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    Log.e("OcrActivity", "얼굴 비교 실패: " + response.message());
-                    runOnUiThread(() -> {
-                        faceResultTextView.setText("얼굴 비교 실패");
-                        faceResultTextView.setVisibility(View.VISIBLE);
-                    });
-                    return;
-                }
-                String responseBody = response.body().string();
-                JsonObject jsonResponse = JsonParser.parseString(responseBody).getAsJsonObject();
-                boolean isMatch = jsonResponse.get("is_match").getAsBoolean();
-
-                runOnUiThread(() -> {
-                    if (isMatch) {
-                        faceImageView.setImageResource(R.drawable.face_match); // 매칭 이미지로 변경
-                        faceResultTextView.setText("얼굴이 일치합니다.");
-                    } else {
-                        faceImageView.setImageResource(R.drawable.face_no_match); // 불일치 이미지로 변경
-                        faceResultTextView.setText("얼굴이 일치하지 않습니다.");
-                    }
-                    faceResultTextView.setVisibility(View.VISIBLE); // 결과 TextView 보이기
-                });
-            }
-        });
-    }
-
-    // 인터페이스 정의
-    interface ImageUploadCallback {
-        void onUploadSuccess(String imageUrl);
-        void onUploadFailure();
     }
 
     @Override

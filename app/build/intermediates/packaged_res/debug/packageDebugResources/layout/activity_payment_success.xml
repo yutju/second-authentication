@@ -8,11 +8,11 @@
     <!-- 성공 이미지 추가 -->
     <ImageView
         android:id="@+id/payment_success_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/payment_success_image"
+        android:layout_width="82dp"
+        android:layout_height="103dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/payment_success_image" />
 
     <!-- 성공 메시지 텍스트 -->
     <TextView
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/payment_success_image"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textColor="#000000"
         android:text="결제가 완료되었습니다."
         android:layout_centerHorizontal="true"/>
