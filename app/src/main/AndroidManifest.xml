@@ -49,6 +49,8 @@
         <activity android:name=".PaymentActivity" />
         <activity android:name=".InventoryActivity" />
         <activity android:name=".PaymentSuccessActivity" />
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".SignupActivity"></activity>
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
