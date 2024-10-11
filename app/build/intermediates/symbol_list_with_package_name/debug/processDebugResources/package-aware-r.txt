@@ -3234,6 +3234,9 @@ id activity_chooser_view_content
 id add
 id adjust_height
 id adjust_width
+id adultVerificationLayout
+id adultVerificationResult
+id adultVerificationTitle
 id age_restriction_image
 id age_restriction_message
 id age_restriction_submessage
@@ -3321,6 +3324,7 @@ id decor_content_parent
 id decreaseButton
 id default_activity_button
 id deleteButton
+id delete_account_button
 id deltaRelative
 id dependency_ordering
 id design_bottom_sheet
@@ -3336,6 +3340,7 @@ id disableIntraAutoTransition
 id disablePostScroll
 id disableScroll
 id disjoint
+id dobExtracted
 id dragAnticlockwise
 id dragClockwise
 id dragDown
@@ -3350,9 +3355,15 @@ id easeInOut
 id easeOut
 id east
 id edge
+id editTextConfirmNewPassword
+id editTextConfirmPassword
+id editTextCurrentPassword
 id editTextEmail
+id editTextName
+id editTextNewPassword
 id editTextPassword
-id editTextUsername
+id editTextSSN
+id editTextUserName
 id edit_query
 id edit_text_id
 id elastic
@@ -3403,6 +3414,7 @@ id horizontal_only
 id icon
 id icon_group
 id icon_only
+id idCardName
 id ifRoom
 id ignore
 id ignoreRequest
@@ -3433,6 +3445,7 @@ id line3
 id linear
 id listMode
 id list_item
+id loggedInUserName
 id login_button
 id m3_side_sheet
 id manage_profile_button
@@ -3497,7 +3510,10 @@ id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
+id nameComparisonResult
 id nameTextView
+id nameVerificationLayout
+id nameVerificationTitle
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view
@@ -3588,6 +3604,7 @@ id right_icon
 id right_side
 id rounded
 id row_index_key
+id save_button
 id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
@@ -3678,6 +3695,7 @@ id textSpacerNoTitle
 id textStart
 id textTop
 id textView
+id textViewSSN
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3860,6 +3878,7 @@ layout activity_ocr
 layout activity_order_summary
 layout activity_payment
 layout activity_payment_success
+layout activity_profile_management
 layout activity_signup
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row

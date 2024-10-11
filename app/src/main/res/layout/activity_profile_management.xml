@@ -4,12 +4,12 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/editTextUserName"
+        android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="이름을 입력하세요"
         android:padding="16dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="50dp" />
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -19,55 +19,55 @@
         android:padding="16dp"
         android:layout_below="@id/editTextName"
         android:layout_marginTop="20dp"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:enabled="false" />
 
-    <EditText
-        android:id="@+id/editTextPassword"
+    <TextView
+        android:id="@+id/textViewSSN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="비밀번호를 입력하세요"
+        android:text="주민등록번호: 데이터 검사중"
         android:padding="16dp"
         android:layout_below="@id/editTextEmail"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:id="@+id/editTextCurrentPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="현재 비밀번호"
+        android:padding="16dp"
+        android:layout_below="@id/textViewSSN"
         android:layout_marginTop="20dp"
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/editTextConfirmPassword"
+        android:id="@+id/editTextNewPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="비밀번호를 한 번 더 입력하세요"
+        android:hint="새 비밀번호"
         android:padding="16dp"
-        android:layout_below="@id/editTextPassword"
+        android:layout_below="@id/editTextCurrentPassword"
         android:layout_marginTop="20dp"
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/editTextSSN"
+        android:id="@+id/editTextConfirmNewPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="주민등록번호를 입력하세요 (형식: XXXXXX-XXXXXXX)"
+        android:hint="새 비밀번호 확인"
         android:padding="16dp"
-        android:layout_below="@id/editTextConfirmPassword"
+        android:layout_below="@id/editTextNewPassword"
         android:layout_marginTop="20dp"
-        android:inputType="number"
-        android:maxLength="14"
-        android:digits="0123456789" />
+        android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/signup_button"
+        android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="회원가입"
-        android:layout_below="@id/editTextSSN"
+        android:text="저장"
+        android:layout_below="@id/editTextConfirmNewPassword"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true" />
-
-    <!-- 회원가입 로딩 상태를 표시하는 ProgressBar -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone" /> <!-- 초기에는 숨겨진 상태 -->
 
 </RelativeLayout>

@@ -3,12 +3,14 @@ package com.example.myapplication2222;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -17,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private Button actionButton; // 로그인/로그아웃 버튼
+    private Button deleteAccountButton; // 회원 탈퇴 버튼
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +30,12 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         actionButton = findViewById(R.id.login_button); // 로그인 버튼
+        deleteAccountButton = findViewById(R.id.delete_account_button); // 회원 탈퇴 버튼
 
         // 회원가입 텍스트 클릭 리스너 추가
         TextView signupText = findViewById(R.id.signup_text);
         signupText.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, com.example.myapplication2222.SignupActivity.class);
+            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
         });
 
@@ -44,6 +48,50 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(); // 로그인 시도
             }
         });
+
+        // 회원 탈퇴 버튼 클릭 리스너 추가
+        deleteAccountButton.setOnClickListener(v -> deleteUserAccount());
+    }
+
+    private void deleteUserAccount() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            // 비밀번호를 재인증하기 위해 이메일과 비밀번호를 입력하도록 요청합니다.
+            String email = editTextEmail.getText().toString().trim();
+            String password = editTextPassword.getText().toString().trim();
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "이메일과 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // 재인증을 수행합니다.
+            AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+            user.reauthenticate(credential).addOnCompleteListener(reauthTask -> {
+                if (reauthTask.isSuccessful()) {
+                    // 재인증에 성공한 경우 계정을 삭제합니다.
+                    user.delete().addOnCompleteListener(deleteTask -> {
+                        if (deleteTask.isSuccessful()) {
+                            // 계정 삭제 성공
+                            Log.d("LoginActivity", "계정 삭제 성공");
+                            Toast.makeText(LoginActivity.this, "계정이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                            // 로그인 화면으로 이동
+                            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // 계정 삭제 실패
+                            Log.e("LoginActivity", "계정 삭제 실패: " + deleteTask.getException().getMessage());
+                            Toast.makeText(LoginActivity.this, "계정 삭제에 실패했습니다: " + deleteTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    // 재인증 실패
+                    Log.e("LoginActivity", "재인증 실패: " + reauthTask.getException().getMessage());
+                    Toast.makeText(LoginActivity.this, "재인증에 실패했습니다: " + reauthTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void loginUser() {
@@ -61,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null && user.isEmailVerified()) {
                             Log.d("LoginActivity", "로그인 성공: " + user.getEmail());
-                            // 본인 인증을 위해 다음 화면으로 이동 (e.g., OCR 데이터 비교 단계)
+                            // 로그인 성공 후 메인 화면으로 이동
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -74,7 +122,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
     private void logoutUser() {
         mAuth.signOut();

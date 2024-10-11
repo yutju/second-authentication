@@ -49,8 +49,10 @@
         <activity android:name=".PaymentActivity" />
         <activity android:name=".InventoryActivity" />
         <activity android:name=".PaymentSuccessActivity" />
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignupActivity"/>
+        <activity android:name=".ProfileManagementActivity"/>
+
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
@@ -69,6 +71,9 @@
         <meta-data
             android:name="BOOTPAY_PRIVATE_KEY"
             android:value="BQuS/IErpSLPUUAqFFXTz4VA2LP9GBo7rDEOKLcA3Hw=" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
     </application>
 </manifest>
