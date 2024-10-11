@@ -175,6 +175,7 @@
         <activity android:name="com.example.myapplication2222.PaymentSuccessActivity" />
         <activity android:name="com.example.myapplication2222.LoginActivity" />
         <activity android:name="com.example.myapplication2222.SignupActivity" />
+        <activity android:name="com.example.myapplication2222.ProfileManagementActivity" />
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
@@ -195,6 +196,9 @@
         <meta-data
             android:name="BOOTPAY_PRIVATE_KEY"
             android:value="BQuS/IErpSLPUUAqFFXTz4VA2LP9GBo7rDEOKLcA3Hw=" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name="com.google.firebase.auth.internal.GenericIdpActivity"
@@ -407,10 +411,6 @@
                 android:name="androidx.profileinstaller.ProfileInstallerInitializer"
                 android:value="androidx.startup" />
         </provider>
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
 
         <receiver
             android:name="androidx.profileinstaller.ProfileInstallReceiver"

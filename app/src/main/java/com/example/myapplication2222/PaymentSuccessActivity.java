@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,6 +29,7 @@ public class PaymentSuccessActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private CollectionReference cartCollectionRef;
     private CollectionReference inventoryCollectionRef;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class PaymentSuccessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment_success);
 
         firestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         cartCollectionRef = firestore.collection("kartrider");
         inventoryCollectionRef = firestore.collection("inventory");
 
@@ -112,7 +115,7 @@ public class PaymentSuccessActivity extends AppCompatActivity {
             return null;
         }).addOnSuccessListener(aVoid -> {
             Log.d(TAG, "재고 업데이트 및 장바구니 초기화 성공");
-            clearAdultVerification();
+            clearUserSession(); // 결제 후 사용자 세션 초기화
             showSuccessMessage();
         }).addOnFailureListener(e -> {
             Log.e(TAG, "재고 업데이트 또는 장바구니 초기화 실패", e);
@@ -120,12 +123,17 @@ public class PaymentSuccessActivity extends AppCompatActivity {
         });
     }
 
-    private void clearAdultVerification() {
+    private void clearUserSession() {
+        if (mAuth.getCurrentUser() != null) {
+            mAuth.signOut(); // 사용자 로그아웃
+        }
+
+        // 성인 인증 상태 초기화
         getSharedPreferences("app_preferences", MODE_PRIVATE)
                 .edit()
                 .putBoolean("isAdult", false)
                 .apply();
-        Log.d(TAG, "성인인증 정보 초기화 완료");
+        Log.d(TAG, "성인인증 정보 및 사용자 세션 초기화 완료");
     }
 
     private void showSuccessMessage() {

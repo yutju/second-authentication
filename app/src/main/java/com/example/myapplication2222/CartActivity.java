@@ -40,6 +40,7 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
     private TextView totalPriceTextView;
     private Map<String, Boolean> restrictedProducts = new HashMap<>();
     private boolean isDialogShowing = false; // 다이얼로그 표시 상태
+    private boolean dataLoaded = false; // 데이터 로드 상태
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,7 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
                             productList.addAll(newProductList);
                             productAdapter.notifyDataSetChanged();
                             updateTotalPrice();
+                            checkDataLoaded(); // 데이터 로드 체크 추가
                         });
                     } else {
                         Log.e("CartActivity", "Error fetching data: " + task.getException());
@@ -126,10 +128,18 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
                                 restrictedProducts.put(document.getId(), false);
                             }
                         }
+                        checkDataLoaded(); // 데이터 로드 체크 추가
                     } else {
                         Log.e("CartActivity", "Error fetching restricted products: " + task.getException());
                     }
                 });
+    }
+
+    private void checkDataLoaded() {
+        // 두 데이터가 모두 로드되었는지 확인
+        if (!productList.isEmpty() && !restrictedProducts.isEmpty()) {
+            dataLoaded = true;
+        }
     }
 
     private void setupFirestoreListener() {
@@ -216,6 +226,7 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
         }
         totalPriceTextView.setText("총 결제금액: " + totalPrice + "원");
     }
+
     @Override
     public void onProductDeleteClick(int position) {
         if (position >= 0 && position < productList.size()) {
@@ -271,10 +282,19 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
     public void onProductQuantityChanged() {
         updateTotalPrice(); // 총 가격 업데이트 호출 추가
     }
+
     private void handlePayment() {
+        if (!dataLoaded) {
+            Toast.makeText(context, "데이터가 아직 로드되지 않았습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // SharedPreferences에서 성인 인증 상태 로드
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean isAdult = prefs.getBoolean(KEY_IS_ADULT, false);
+
+        Log.d("CartActivity", "containsRestrictedProducts: " + containsRestrictedProducts());
+        Log.d("CartActivity", "isAdult: " + isAdult);
 
         if (containsRestrictedProducts()) {
             if (!isAdult) {
@@ -285,11 +305,20 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
             } else {
                 // 성인 인증이 완료된 경우 결제 처리
                 navigateToOrderSummary();
+                resetAdultVerification(); // 결제 후 성인 인증 정보 초기화
             }
         } else {
             // 미성년자 구매 불가 품목이 없는 경우 결제 처리
             navigateToOrderSummary();
+            resetAdultVerification(); // 결제 후 성인 인증 정보 초기화
         }
+    }
+
+    private void resetAdultVerification() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(KEY_IS_ADULT, false);
+        editor.apply();
     }
 
     private void showAgeRestrictionDialog() {
@@ -323,9 +352,8 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
                 editor.apply();
 
                 if (isAdult) {
-                    // 성인 인증이 완료되었으면 인증 완료 메시지 표시 후 결제 처리
+                    // 성인 인증이 완료되었으면 인증 완료 메시지 표시
                     Toast.makeText(this, "성인 인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                    navigateToOrderSummary();
                 } else {
                     Toast.makeText(this, "성인 인증에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -347,6 +375,4 @@ public class CartActivity extends AppCompatActivity implements KartriderAdapter.
         startActivity(intent);
         finish(); // 현재 Activity 종료
     }
-
-
 }

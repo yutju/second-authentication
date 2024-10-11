@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="이름을 입력하세요"
+        android:padding="16dp"
+        android:layout_marginTop="50dp" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="이메일"
+        android:padding="16dp"
+        android:layout_below="@id/editTextName"
+        android:layout_marginTop="20dp"
+        android:inputType="textEmailAddress"
+        android:enabled="false" />
+
+    <TextView
+        android:id="@+id/textViewSSN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="주민등록번호: 데이터 검사중"
+        android:padding="16dp"
+        android:layout_below="@id/editTextEmail"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:id="@+id/editTextCurrentPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="현재 비밀번호"
+        android:padding="16dp"
+        android:layout_below="@id/textViewSSN"
+        android:layout_marginTop="20dp"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editTextNewPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="새 비밀번호"
+        android:padding="16dp"
+        android:layout_below="@id/editTextCurrentPassword"
+        android:layout_marginTop="20dp"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editTextConfirmNewPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="새 비밀번호 확인"
+        android:padding="16dp"
+        android:layout_below="@id/editTextNewPassword"
+        android:layout_marginTop="20dp"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="저장"
+        android:layout_below="@id/editTextConfirmNewPassword"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

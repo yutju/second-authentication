@@ -76,6 +76,7 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-s3:2.22.2'
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'io.github.bootpay:android:4.4.2'
-    implementation 'com.google.android.gms:play-services-auth:20.0.0' // 필요에 따라 다른 서비스 추가
+    implementation 'com.google.android.gms:play-services-auth:20.5.0' // 최신 버전으로 업데이트
+    // 필요에 따라 다른 서비스 추가
 
 }

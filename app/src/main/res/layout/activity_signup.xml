@@ -1,17 +1,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/editTextUsername"
+        android:id="@+id/editTextUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="이메일을 입력하세요"
+        android:hint="이름을 입력하세요"
         android:padding="16dp"
-        android:inputType="textEmailAddress"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="이메일"
+        android:padding="16dp"
+        android:layout_below="@id/editTextName"
+        android:layout_marginTop="20dp"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -19,16 +27,38 @@
         android:layout_height="wrap_content"
         android:hint="비밀번호를 입력하세요"
         android:padding="16dp"
-        android:layout_below="@id/editTextUsername"
+        android:layout_below="@id/editTextEmail"
         android:layout_marginTop="20dp"
         android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editTextConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="비밀번호를 한 번 더 입력하세요"
+        android:padding="16dp"
+        android:layout_below="@id/editTextPassword"
+        android:layout_marginTop="20dp"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editTextSSN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="주민등록번호를 입력하세요 (형식: XXXXXX-XXXXXXX)"
+        android:padding="16dp"
+        android:layout_below="@id/editTextConfirmPassword"
+        android:layout_marginTop="20dp"
+        android:inputType="number"
+        android:maxLength="14"
+        android:digits="0123456789" />
 
     <Button
         android:id="@+id/signup_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회원가입"
-        android:layout_below="@id/editTextPassword"
+        android:layout_below="@id/editTextSSN"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true" />
 
