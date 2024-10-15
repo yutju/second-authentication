@@ -370,34 +370,6 @@ public class OcrActivity extends AppCompatActivity {
         return null;
     }
 
-    private void getCurrentUserSSN(OnUserSSNRetrievedListener listener) {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            String userId = currentUser.getUid();
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference userRef = db.collection("users").document(userId);
-
-            userRef.get().addOnSuccessListener(documentSnapshot -> {
-                if (documentSnapshot.exists()) {
-                    String ssn = documentSnapshot.getString("ssn");
-                    listener.onUserSSNRetrieved(ssn);
-                } else {
-                    listener.onUserSSNRetrieved(null);
-                }
-            }).addOnFailureListener(e -> {
-                Log.e("OcrActivity", "사용자 주민등록번호 가져오기 실패", e);
-                listener.onUserSSNRetrieved(null);
-            });
-        } else {
-            listener.onUserSSNRetrieved(null);
-        }
-    }
-
-    interface OnUserSSNRetrievedListener {
-        void onUserSSNRetrieved(String ssn);
-    }
-
-
 
     // 생년월일 찾기 개선
     private String findDateOfBirth(String text) {
@@ -422,33 +394,46 @@ public class OcrActivity extends AppCompatActivity {
         return null;
     }
 
-    // 이름 찾기 개선
     private String findName(String text) {
-        // 운전면허증인지 주민등록증인지에 따라 이름 위치를 추정하여 추출
-        if (isDriverLicense(text)) {
-            // 운전면허증: 주민번호 위에 이름이 위치
-            Pattern namePattern = Pattern.compile("[가-힣]{2,5}(?=\\s*\\d{6}-\\d{7})");
-            Matcher nameMatcher = namePattern.matcher(text);
-            if (nameMatcher.find()) {
-                return nameMatcher.group(0);
-            }
-        } else {
-            // 주민등록증: 주민번호 아래에 이름이 위치
-            Pattern namePattern = Pattern.compile("(?<=\\d{6}-\\d{7}\\s)[가-힣]{2,5}");
-            Matcher nameMatcher = namePattern.matcher(text);
-            if (nameMatcher.find()) {
-                return nameMatcher.group(0);
+        // 주민등록번호 패턴을 찾아서 그 위의 텍스트를 찾음
+        Pattern ssnPattern = Pattern.compile("\\d{6}-\\d{7}");
+        Matcher ssnMatcher = ssnPattern.matcher(text);
+
+        if (ssnMatcher.find()) {
+            // 주민등록번호의 위치를 기준으로 그 위의 텍스트를 찾음
+            int ssnStartIndex = ssnMatcher.start();
+
+            // 주민등록번호 위의 부분 텍스트 추출
+            String textBeforeSSN = text.substring(0, ssnStartIndex).trim();
+
+            // 마지막 줄의 이름 추출
+            String[] lines = textBeforeSSN.split("\\n");
+            if (lines.length > 0) {
+                String possibleNameLine = lines[lines.length - 1].trim();
+
+                // 괄호 안의 텍스트 제거
+                possibleNameLine = possibleNameLine.replaceAll("\\([^)]*\\)", "").trim();
+
+                // 한글 이름 패턴 (2~4자)
+                Pattern namePattern = Pattern.compile("[가-힣]{2,4}");
+                Matcher nameMatcher = namePattern.matcher(possibleNameLine);
+                if (nameMatcher.find()) {
+                    // 이름을 찾아서 전처리 후 반환
+                    return cleanName(nameMatcher.group(0));
+                }
             }
         }
+
         return null;
     }
 
-    // 운전면허증 형식인지 확인
-    private boolean isDriverLicense(String text) {
-        Pattern licenseNumberPattern = Pattern.compile("\\d{2}-\\d{2}-\\d{6}-\\d{2}");
-        Matcher licenseMatcher = licenseNumberPattern.matcher(text);
-        return licenseMatcher.find();
+    // 이름 전처리 메서드 개선 (괄호 및 특수문자 제거)
+    private String cleanName(String name) {
+        // 한글만 남기기 (특수문자, 괄호, 숫자, 영어 등 제거)
+        return name.replaceAll("[^가-힣]", "");
     }
+
+
 
     // 성인 여부 확인
     private boolean isMinor(String dob) {
