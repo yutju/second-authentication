@@ -361,14 +361,19 @@ public class OcrActivity extends AppCompatActivity {
     }
     // 주민등록번호 찾기 추가
     private String findSSN(String text) {
-        // 주민등록번호 형식 (YYMMDD-XXXXXXX)을 추출
-        Pattern ssnPattern = Pattern.compile("\\d{6}-\\d{7}");
-        Matcher ssnMatcher = ssnPattern.matcher(text.replaceAll("\\s+", "")); // 공백 제거
+        // 모든 공백 제거
+        text = text.replaceAll("\\s+", "");
+
+        // 주민등록번호 형식 (YYMMDD-XXXXXXX) 또는 공백과 하이픈이 포함된 형식도 허용
+        Pattern ssnPattern = Pattern.compile("\\d{6}-?\\d{7}");
+        Matcher ssnMatcher = ssnPattern.matcher(text);
+
         if (ssnMatcher.find()) {
-            return ssnMatcher.group(0);
+            return ssnMatcher.group(0).replace("-", ""); // 하이픈 제거
         }
         return null;
     }
+
 
 
     // 생년월일 찾기 개선
