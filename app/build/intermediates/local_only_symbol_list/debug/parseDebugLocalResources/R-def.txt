@@ -26,6 +26,7 @@ id age_restriction_message
 id age_restriction_submessage
 id button
 id captureButton
+id captureLivePhotoButton
 id cart_button
 id confirm_button
 id custom_view
@@ -42,10 +43,17 @@ id editTextNewPassword
 id editTextPassword
 id editTextSSN
 id editTextUserName
+id faceComparisonResult
+id faceVerificationLayout
+id faceVerificationTitle
+id facestartButton
+id idCardFaceImageView
 id idCardName
 id imageView
 id increaseButton
 id inventoryRecyclerView
+id liveFaceImageView
+id livePhotoButton
 id loggedInUserName
 id login_button
 id manage_profile_button
@@ -82,8 +90,10 @@ id searchEditText
 id searchLabelTextView
 id signup_button
 id signup_text
+id similarityTextView
 id stockTextView
 id stock_button
+id switchCameraButton
 id textView
 id textViewSSN
 id titleTextView
@@ -91,7 +101,9 @@ id total_amount
 id total_amount_summary
 id total_quantity
 id total_summary
+id verifyFaceButton
 layout activity_cart
+layout activity_face_verification
 layout activity_inventory
 layout activity_login
 layout activity_main
@@ -107,6 +119,7 @@ layout item_inventory
 layout item_kartrider
 mipmap ic_launcher
 mipmap ic_launcher_round
+raw haarcascade_frontalface_alt
 string age_restriction_description
 string age_restriction_message
 string age_restriction_submessage

@@ -1,19 +1,26 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
     namespace = "com.example.myapplication2222"
     compileSdkVersion = 34
-
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+    }
     defaultConfig {
         applicationId = "com.example.myapplication2222"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -28,9 +35,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+
     buildToolsVersion '34.0.0'
 }
 
@@ -65,6 +77,7 @@ dependencies {
 
     // LocalBroadcastManager
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
+    implementation project(':sdk')
 
     // Testing Libraries
     testImplementation 'junit:junit:4.13.2'
@@ -78,5 +91,9 @@ dependencies {
     implementation 'io.github.bootpay:android:4.4.2'
     implementation 'com.google.android.gms:play-services-auth:20.5.0' // 최신 버전으로 업데이트
     // 필요에 따라 다른 서비스 추가
+    implementation 'org.tensorflow:tensorflow-lite:2.11.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.4.0'
+    implementation 'com.google.mlkit:face-detection:16.1.7'
+
 
 }

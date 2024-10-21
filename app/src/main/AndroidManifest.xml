@@ -52,6 +52,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignupActivity"/>
         <activity android:name=".ProfileManagementActivity"/>
+        <activity android:name=".FaceVerificationActivity"/>
 
 
         <meta-data

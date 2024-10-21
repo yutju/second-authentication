@@ -232,6 +232,7 @@ attr buttonStyle
 attr buttonStyleSmall
 attr buttonTint
 attr buttonTintMode
+attr camera_id
 attr cardBackgroundColor
 attr cardCornerRadius
 attr cardElevation
@@ -1052,6 +1053,7 @@ attr showMotionSpec
 attr showPaths
 attr showText
 attr showTitle
+attr show_fps
 attr shrinkMotionSpec
 attr sideSheetDialogTheme
 attr sideSheetModalStyle
@@ -3249,6 +3251,7 @@ id animateToEnd
 id animateToStart
 id antiClockwise
 id anticipate
+id any
 id arc
 id asConfigured
 id async
@@ -3256,6 +3259,7 @@ id auto
 id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
+id back
 id barrier
 id baseline
 id beginOnFirstDraw
@@ -3278,6 +3282,7 @@ id cache_measures
 id callMeasure
 id cancel_button
 id captureButton
+id captureLivePhotoButton
 id carryVelocity
 id cart_button
 id center
@@ -3376,6 +3381,10 @@ id escape
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id faceComparisonResult
+id faceVerificationLayout
+id faceVerificationTitle
+id facestartButton
 id fade
 id fill
 id fillCenter
@@ -3394,6 +3403,7 @@ id flip
 id floating
 id forever
 id fragment_container_view_tag
+id front
 id frost
 id fullscreen_header
 id ghost_view
@@ -3414,6 +3424,7 @@ id horizontal_only
 id icon
 id icon_group
 id icon_only
+id idCardFaceImageView
 id idCardName
 id ifRoom
 id ignore
@@ -3445,6 +3456,8 @@ id line3
 id linear
 id listMode
 id list_item
+id liveFaceImageView
+id livePhotoButton
 id loggedInUserName
 id login_button
 id m3_side_sheet
@@ -3639,6 +3652,7 @@ id showHome
 id showTitle
 id signup_button
 id signup_text
+id similarityTextView
 id sin
 id skipCollapsed
 id skipped
@@ -3673,6 +3687,7 @@ id stretch
 id submenuarrow
 id submit_area
 id supportScrollUp
+id switchCameraButton
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -3734,6 +3749,7 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id verifyFaceButton
 id vertical_only
 id view_offset_helper
 id view_transition
@@ -3870,6 +3886,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_cart
+layout activity_face_verification
 layout activity_inventory
 layout activity_login
 layout activity_main
@@ -3969,6 +3986,7 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
 raw firebase_common_keep
+raw haarcascade_frontalface_alt
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -5338,6 +5356,7 @@ styleable BottomAppBar addElevationShadow backgroundTint elevation fabAlignmentM
 styleable BottomNavigationView android_minHeight compatShadowEnabled itemHorizontalTranslationEnabled shapeAppearance shapeAppearanceOverlay
 styleable BottomSheetBehavior_Layout android_maxWidth android_maxHeight android_elevation backgroundTint behavior_draggable behavior_expandedOffset behavior_fitToContents behavior_halfExpandedRatio behavior_hideable behavior_peekHeight behavior_saveFlags behavior_significantVelocityThreshold behavior_skipCollapsed gestureInsetBottomIgnored marginLeftSystemWindowInsets marginRightSystemWindowInsets marginTopSystemWindowInsets paddingBottomSystemWindowInsets paddingLeftSystemWindowInsets paddingRightSystemWindowInsets paddingTopSystemWindowInsets shapeAppearance shapeAppearanceOverlay shouldRemoveExpandedCorners
 styleable ButtonBarLayout allowStacking
+styleable CameraBridgeViewBase camera_id show_fps
 styleable Capability queryPatterns shortcutMatchRequired
 styleable CardView android_minWidth android_minHeight cardBackgroundColor cardCornerRadius cardElevation cardMaxElevation cardPreventCornerOverlap cardUseCompatPadding contentPadding contentPaddingBottom contentPaddingLeft contentPaddingRight contentPaddingTop
 styleable Carousel carousel_alignment carousel_backwardTransition carousel_emptyViewsBehavior carousel_firstView carousel_forwardTransition carousel_infinite carousel_nextState carousel_previousState carousel_touchUpMode carousel_touchUp_dampeningFactor carousel_touchUp_velocityThreshold
