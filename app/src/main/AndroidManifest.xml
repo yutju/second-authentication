@@ -54,7 +54,6 @@
         <activity android:name=".ProfileManagementActivity"/>
         <activity android:name=".FaceVerificationActivity"/>
 
-
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="ocr" />

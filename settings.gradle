@@ -22,7 +22,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "My Application2222"
 
-include ':app',':sdk'
-project(':sdk').projectDir = new File('C:/Users/gsh56/Downloads/opencv-4.10.0-android-sdk/OpenCV-android-sdk/sdk')
+include ':app'
+
 
 

@@ -5,13 +5,26 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- 카메라 프리뷰 -->
-    <androidx.camera.view.PreviewView
-        android:id="@+id/previewView"
+    <!-- 카메라 프리뷰와 오버레이 -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#E0E0E0" />
+        android:layout_weight="1">
+
+        <!-- 카메라 프리뷰 -->
+        <androidx.camera.view.PreviewView
+            android:id="@+id/previewView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#E0E0E0" />
+
+        <!-- 얼굴 가이드라인 오버레이 -->
+        <com.example.myapplication2222.FaceOverlay
+            android:id="@+id/faceOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
 
     <!-- 신분증 얼굴 촬영 및 실시간 얼굴 촬영 미리보기 -->
     <LinearLayout
@@ -91,6 +104,7 @@
         android:layout_gravity="center"
         android:visibility="invisible"
         android:layout_marginTop="16dp" />
+
     <TextView
         android:id="@+id/similarityTextView"
         android:layout_width="wrap_content"
@@ -99,4 +113,5 @@
         android:textSize="16sp"
         android:layout_gravity="center"
         android:layout_marginTop="8dp" />
+
 </LinearLayout>

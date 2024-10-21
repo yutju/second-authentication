@@ -1,5 +1,6 @@
 package com.example.myapplication2222;
 
+import android.graphics.Color;
 import android.os.Handler;
 import android.Manifest;
 import android.content.Intent;
@@ -9,6 +10,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -154,16 +159,47 @@ public class FaceVerificationActivity extends AppCompatActivity {
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                 Bitmap originalBitmap = BitmapFactory.decodeFile(idCardPhotoFile.getAbsolutePath());
                 if (originalBitmap != null) {
-                    Bitmap rotatedBitmap = rotateBitmap(originalBitmap, 90);
-                    idCardFaceBitmap = rotatedBitmap;
-                    runOnUiThread(() -> {
-                        idCardFaceImageView.setImageBitmap(rotatedBitmap);
-                        Toast.makeText(FaceVerificationActivity.this, "신분증 얼굴 사진이 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    Bitmap rotatedBitmap;
+                    if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) {
+                        rotatedBitmap = rotateBitmap(originalBitmap, 270);
+                    } else {
+                        rotatedBitmap = rotateBitmap(originalBitmap, 90);
+                    }
+
+                    // 얼굴 감지 후 크롭
+                    detectFaceUsingMLKit(rotatedBitmap, new OnFaceDetectedListener() {
+                        @Override
+                        public void onFaceDetected(Bitmap croppedFace) {
+                            // 얼굴 감지 후 밝기 및 대비 조정과 필터링 적용
+                            Bitmap enhancedFace = enhanceFaceImage(croppedFace);
+
+                            idCardFaceBitmap = enhancedFace;
+
+                            runOnUiThread(() -> {
+                                idCardFaceImageView.setImageBitmap(enhancedFace);
+                                Toast.makeText(FaceVerificationActivity.this, "신분증 얼굴 사진이 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                            });
+                        }
+
+                        @Override
+                        public void onFaceDetectionFailed() {
+                            runOnUiThread(() -> {
+                                Toast.makeText(FaceVerificationActivity.this, "신분증 얼굴 감지에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            });
+                        }
                     });
-                    Log.d("FaceVerificationActivity", "신분증 사진이 성공적으로 저장되었습니다.");
                 } else {
                     runOnUiThread(() -> Toast.makeText(FaceVerificationActivity.this, "신분증 얼굴 사진 저장에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show());
-                    Log.e("FaceVerificationActivity", "신분증 사진 저장에 실패했습니다.");
+                }
+
+                // 저장된 모든 이미지를 삭제합니다.
+                File directory = getExternalFilesDir(null);
+                if (directory != null && directory.isDirectory()) {
+                    for (File file : directory.listFiles()) {
+                        if (file.isFile()) {
+                            file.delete();
+                        }
+                    }
                 }
             }
 
@@ -173,6 +209,52 @@ public class FaceVerificationActivity extends AppCompatActivity {
             }
         });
     }
+    private Bitmap enhanceFaceImage(Bitmap bitmap) {
+        // 밝기 및 대비 조정
+        Bitmap adjustedBitmap = adjustBrightnessContrast(bitmap, 1.5f, 30); // 대비 1.5, 밝기 +30
+
+        // 이미지 필터링 (예: 블러 효과)
+        Bitmap filteredBitmap = applyBlur(adjustedBitmap);
+
+        return filteredBitmap;
+    }
+
+    private Bitmap adjustBrightnessContrast(Bitmap bitmap, float contrast, int brightness) {
+        Bitmap outputBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
+
+        for (int x = 0; x < bitmap.getWidth(); x++) {
+            for (int y = 0; y < bitmap.getHeight(); y++) {
+                int pixel = bitmap.getPixel(x, y);
+
+                int r = (int) (((Color.red(pixel) - 128) * contrast) + 128 + brightness);
+                int g = (int) (((Color.green(pixel) - 128) * contrast) + 128 + brightness);
+                int b = (int) (((Color.blue(pixel) - 128) * contrast) + 128 + brightness);
+
+                r = Math.min(255, Math.max(0, r));
+                g = Math.min(255, Math.max(0, g));
+                b = Math.min(255, Math.max(0, b));
+
+                outputBitmap.setPixel(x, y, Color.rgb(r, g, b));
+            }
+        }
+        return outputBitmap;
+    }
+
+    private Bitmap applyBlur(Bitmap bitmap) {
+        RenderScript rs = RenderScript.create(this);
+        Allocation input = Allocation.createFromBitmap(rs, bitmap);
+        Allocation output = Allocation.createTyped(rs, input.getType());
+
+        ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+        script.setRadius(5.0f); // 블러 반경 (0 < radius <= 25)
+        script.setInput(input);
+        script.forEach(output);
+
+        output.copyTo(bitmap);
+        return bitmap;
+    }
+
+
 
     private void takeLivePhotoAndCompare() {
         if (imageCapture == null) return;
@@ -185,12 +267,40 @@ public class FaceVerificationActivity extends AppCompatActivity {
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                 Bitmap originalBitmap = BitmapFactory.decodeFile(livePhotoFile.getAbsolutePath());
                 if (originalBitmap != null) {
-                    // Rotate live image by 270 degrees
-                    Bitmap rotatedBitmap = rotateBitmap(originalBitmap, 270);
-                    runOnUiThread(() -> liveFaceImageView.setImageBitmap(rotatedBitmap));
-                    compareFacesUsingMLKit(rotatedBitmap);
+                    // 카메라가 전면인지 후면인지에 따라 회전 각도 설정
+                    Bitmap rotatedBitmap;
+                    if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) {
+                        rotatedBitmap = rotateBitmap(originalBitmap, 270); // 전면 카메라는 270도 오른쪽으로 회전
+                    } else {
+                        rotatedBitmap = rotateBitmap(originalBitmap, 90); // 후면 카메라는 90도 회전
+                    }
+
+                    // 얼굴 감지 후 크롭
+                    detectFaceUsingMLKit(rotatedBitmap, new OnFaceDetectedListener() {
+                        @Override
+                        public void onFaceDetected(Bitmap croppedFace) {
+                            runOnUiThread(() -> liveFaceImageView.setImageBitmap(croppedFace));
+                            compareFacesUsingMLKit(croppedFace);
+                        }
+
+                        @Override
+                        public void onFaceDetectionFailed() {
+                            runOnUiThread(() -> {
+                                Toast.makeText(FaceVerificationActivity.this, "실시간 얼굴 감지에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                            });
+                        }
+                    });
                 } else {
                     runOnUiThread(() -> Toast.makeText(FaceVerificationActivity.this, "실시간 얼굴 사진 저장에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show());
+                }
+                // 저장된 모든 이미지를 삭제합니다.
+                File directory = getExternalFilesDir(null);
+                if (directory != null && directory.isDirectory()) {
+                    for (File file : directory.listFiles()) {
+                        if (file.isFile()) {
+                            file.delete();
+                        }
+                    }
                 }
             }
 
@@ -200,6 +310,23 @@ public class FaceVerificationActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private Bitmap cropToGuideLine(Bitmap bitmap) {
+        // 가이드라인 위치에 맞춰 얼굴 크롭 (가이드라인과 일치하는 영역을 크롭)
+        int centerX = bitmap.getWidth() / 2;
+        int centerY = bitmap.getHeight() / 2;
+        int cropWidth = (int) (bitmap.getWidth() * 0.5); // 가이드라인의 너비와 일치
+        int cropHeight = (int) (bitmap.getHeight() * 0.6); // 가이드라인의 높이와 일치
+
+        int left = Math.max(centerX - cropWidth / 2, 0);
+        int top = Math.max(centerY - cropHeight / 2, 0);
+        int right = Math.min(left + cropWidth, bitmap.getWidth());
+        int bottom = Math.min(top + cropHeight, bitmap.getHeight());
+
+        return Bitmap.createBitmap(bitmap, left, top, right - left, bottom - top);
+    }
+
 
 
     private Bitmap rotateBitmap(Bitmap bitmap, int degrees) {
@@ -225,7 +352,7 @@ public class FaceVerificationActivity extends AppCompatActivity {
                     @Override
                     public void onFaceDetected(Bitmap liveFace) {
 
-                        float similarity = calculateCosineSimilarity(extractFaceEmbedding(idCardFaceBitmap), extractFaceEmbedding(liveFaceBitmap));
+                        float similarity = calculateCosineSimilarity(extractFaceEmbedding(idCardFace), extractFaceEmbedding(liveFace));
 
                         isFaceMatched = similarity >= FACE_MATCH_THRESHOLD;
 
@@ -252,7 +379,7 @@ public class FaceVerificationActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 }, 2000); // 2초 지연
-                            }else {
+                            } else {
                                 Toast.makeText(FaceVerificationActivity.this, "얼굴 인증 실패: 얼굴이 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                                 // 저장된 모든 이미지를 삭제합니다.
                                 File directory = getExternalFilesDir(null);
@@ -302,15 +429,16 @@ public class FaceVerificationActivity extends AppCompatActivity {
         detector.process(image)
                 .addOnSuccessListener(faces -> {
                     if (faces.size() > 0) {
-                        // Assume we're working with the first detected face
+                        // 첫 번째로 감지된 얼굴 사용
                         Face face = faces.get(0);
-                        Bitmap croppedFace = Bitmap.createBitmap(
-                                bitmap,
-                                (int) face.getBoundingBox().left,
-                                (int) face.getBoundingBox().top,
-                                (int) face.getBoundingBox().width(),
-                                (int) face.getBoundingBox().height()
-                        );
+
+                        // 얼굴의 Bounding Box를 이용하여 크롭
+                        int left = Math.max((int) face.getBoundingBox().left, 0);
+                        int top = Math.max((int) face.getBoundingBox().top, 0);
+                        int width = Math.min((int) face.getBoundingBox().width(), bitmap.getWidth() - left);
+                        int height = Math.min((int) face.getBoundingBox().height(), bitmap.getHeight() - top);
+
+                        Bitmap croppedFace = Bitmap.createBitmap(bitmap, left, top, width, height);
                         listener.onFaceDetected(croppedFace);
                     } else {
                         listener.onFaceDetectionFailed();
@@ -322,7 +450,6 @@ public class FaceVerificationActivity extends AppCompatActivity {
                 });
     }
 
-    // Interface to handle face detection callbacks
     interface OnFaceDetectedListener {
         void onFaceDetected(Bitmap faceBitmap);
         void onFaceDetectionFailed();
