@@ -7,6 +7,7 @@ local.properties
 
 # 운영체제에 의해 생성된 파일
 .DS_Store
+Thumbs.db
 
 # 특정 대용량 파일 무시
 *.log
@@ -32,6 +33,9 @@ local.properties
 *.metadata/
 .classpath
 .vscode/
+*.obj
+*.dll
+*.exe
 
 # 기타 무시할 수 있는 시스템 디렉토리
 Temporary Internet Files/
@@ -43,3 +47,6 @@ Local/
 /app/build/
 *.apk
 *.dex
+app/build/intermediates/apk/debug/app-debug.apk
+app/build/outputs/apk/
+app/build/outputs/bundle/
