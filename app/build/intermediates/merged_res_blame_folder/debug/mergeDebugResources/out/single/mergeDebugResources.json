@@ -8,12 +8,12 @@
         "source": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\daemon\\8.10.2\\com.example.myapplication2222.app-main-53:\\layout\\item_inventory.xml"
     },
     {
-        "merged": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\daemon\\8.10.2\\com.example.myapplication2222.app-debug-51:\\layout_activity_signup.xml.flat",
-        "source": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\daemon\\8.10.2\\com.example.myapplication2222.app-main-53:\\layout\\activity_signup.xml"
-    },
-    {
         "merged": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\daemon\\8.10.2\\com.example.myapplication2222.app-debug-51:\\layout_activity_main.xml.flat",
         "source": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\daemon\\8.10.2\\com.example.myapplication2222.app-main-53:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\daemon\\8.10.2\\com.example.myapplication2222.app-debug-51:\\layout_activity_signup.xml.flat",
+        "source": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\daemon\\8.10.2\\com.example.myapplication2222.app-main-53:\\layout\\activity_signup.xml"
     },
     {
         "merged": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\daemon\\8.10.2\\com.example.myapplication2222.app-debug-51:\\drawable_smartshoppingcart.png.flat",
@@ -62,6 +62,10 @@
     {
         "merged": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\daemon\\8.10.2\\com.example.myapplication2222.app-debug-51:\\drawable_ic_launcher_foreground.xml.flat",
         "source": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\daemon\\8.10.2\\com.example.myapplication2222.app-main-53:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.myapplication2222.app-debug-51:/drawable_mart_img_example.png.flat",
+        "source": "com.example.myapplication2222.app-main-53:/drawable/mart_img_example.png"
     },
     {
         "merged": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\daemon\\8.10.2\\com.example.myapplication2222.app-debug-51:\\layout_activity_ocr.xml.flat",

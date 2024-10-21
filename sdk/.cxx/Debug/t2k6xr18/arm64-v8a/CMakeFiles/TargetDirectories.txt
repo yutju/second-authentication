@@ -1,0 +1,3 @@
+C:/Users/gsh56/AndroidStudioProjects/ocrmodification0909/sdk/.cxx/Debug/t2k6xr18/arm64-v8a/CMakeFiles/opencv_jni_shared.dir
+C:/Users/gsh56/AndroidStudioProjects/ocrmodification0909/sdk/.cxx/Debug/t2k6xr18/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/gsh56/AndroidStudioProjects/ocrmodification0909/sdk/.cxx/Debug/t2k6xr18/arm64-v8a/CMakeFiles/rebuild_cache.dir

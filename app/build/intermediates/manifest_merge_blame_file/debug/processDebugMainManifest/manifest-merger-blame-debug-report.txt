@@ -10,59 +10,59 @@
 10
 11    <!-- 필요한 권한 추가 -->
 12    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-12-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:5:5-79
-12-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:5:22-76
+12-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:5:5-79
+12-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:5:22-76
 13    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-13-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:6:5-81
-13-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:6:22-78
+13-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:6:5-81
+13-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:6:22-78
 14    <uses-permission
-14-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:7:5-68
+14-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:7:5-68
 15        android:name="android.permission.BLUETOOTH"
-15-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:7:22-65
+15-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:7:22-65
 16        android:required="false" />
 16-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\6819a4f431cd52b5cb325213a8c6736f\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:9:9-33
 17    <uses-permission
-17-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:8:5-74
+17-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:8:5-74
 18        android:name="android.permission.BLUETOOTH_ADMIN"
-18-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:8:22-71
+18-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:8:22-71
 19        android:required="false" />
 19-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\6819a4f431cd52b5cb325213a8c6736f\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:12:9-33
 20    <uses-permission android:name="android.permission.CAMERA" />
-20-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:9:5-65
-20-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:9:22-62
+20-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:9:5-65
+20-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:9:22-62
 21    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-21-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:10:5-81
-21-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:10:22-78
+21-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:10:5-81
+21-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:10:22-78
 22    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-22-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:11:5-80
-22-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:11:22-77
+22-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:11:5-80
+22-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:11:22-77
 23    <uses-permission android:name="android.permission.INTERNET" />
-23-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:12:5-66
-23-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:12:22-64
+23-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:12:5-66
+23-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:12:22-64
 24    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-24-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:13:5-78
-24-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:13:22-76
+24-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:13:5-78
+24-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:13:22-76
 25
 26    <uses-feature
-26-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:15:5-84
+26-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:15:5-84
 27        android:name="android.hardware.camera"
-27-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:15:19-57
+27-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:15:19-57
 28        android:required="true" />
-28-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:15:58-81
+28-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:15:58-81
 29    <uses-feature
-29-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:16:5-95
+29-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:16:5-95
 30        android:name="android.hardware.camera.autofocus"
-30-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:16:19-67
+30-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:16:19-67
 31        android:required="false" />
-31-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:16:68-92
+31-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:16:68-92
 32
 33    <!-- 블루투스 LE 기능을 사용하는 경우 명시 -->
 34    <uses-feature
-34-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:19:5-90
+34-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:19:5-90
 35        android:name="android.hardware.bluetooth_le"
-35-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:19:19-63
+35-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:19:19-63
 36        android:required="true" />
-36-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:19:64-87
+36-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:19:64-87
 37
 38    <uses-permission android:name="android.permission.WAKE_LOCK" />
 38-->[com.google.android.gms:play-services-measurement-api:22.1.2] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7894cd15d9a17485f5a6646332323a55\transformed\jetified-play-services-measurement-api-22.1.2\AndroidManifest.xml:24:5-68
@@ -291,81 +291,86 @@
 140-->[androidx.core:core:1.13.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\a39abdf61009605db0a10118e7a1d94f\transformed\core-1.13.0\AndroidManifest.xml:26:22-94
 141
 142    <application
+<<<<<<< HEAD
 142-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:21:5-79:19
+=======
+142-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:21:5-78:19
+>>>>>>> a95fe2185dbdc18b736214261d34c58c5389df56
 143        android:name="com.example.myapplication2222.MyApplication"
-143-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:22:9-38
+143-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:22:9-38
 144        android:allowBackup="true"
-144-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:23:9-35
+144-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:23:9-35
 145        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 145-->[androidx.core:core:1.13.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\a39abdf61009605db0a10118e7a1d94f\transformed\core-1.13.0\AndroidManifest.xml:28:18-86
 146        android:dataExtractionRules="@xml/data_extraction_rules"
-146-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:24:9-65
+146-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:24:9-65
 147        android:debuggable="true"
 148        android:extractNativeLibs="false"
 149        android:fullBackupContent="@xml/backup_rules"
-149-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:25:9-54
+149-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:25:9-54
 150        android:icon="@mipmap/ic_launcher"
-150-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:26:9-43
+150-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:26:9-43
 151        android:label="@string/app_name"
-151-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:27:9-41
+151-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:27:9-41
 152        android:networkSecurityConfig="@xml/network_security_config"
-152-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:32:9-69
+152-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:32:9-69
 153        android:roundIcon="@mipmap/ic_launcher_round"
-153-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:28:9-54
+153-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:28:9-54
 154        android:supportsRtl="true"
-154-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:29:9-35
+154-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:29:9-35
 155        android:testOnly="true"
 156        android:theme="@style/Theme.MyApplication2222"
-156-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:30:9-55
+156-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:30:9-55
 157        android:usesCleartextTraffic="true" >
-157-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:31:9-44
+157-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:31:9-44
 158        <activity
-158-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:35:9-42:20
+158-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:35:9-42:20
 159            android:name="com.example.myapplication2222.MainActivity"
-159-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:36:13-41
+159-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:36:13-41
 160            android:exported="true" >
-160-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:37:13-36
+160-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:37:13-36
 161            <intent-filter>
-161-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:38:13-41:29
+161-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:38:13-41:29
 162                <action android:name="android.intent.action.MAIN" />
-162-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:39:17-69
-162-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:39:25-66
+162-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:39:17-69
+162-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:39:25-66
 163
 164                <category android:name="android.intent.category.LAUNCHER" />
-164-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:40:17-77
-164-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:40:27-74
+164-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:40:17-77
+164-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:40:27-74
 165            </intent-filter>
 166        </activity>
 167
 168        <!-- 나머지 활동들 등록 -->
 169        <activity android:name="com.example.myapplication2222.MapActivity" />
-169-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:45:9-49
-169-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:45:19-46
+169-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:45:9-49
+169-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:45:19-46
 170        <activity android:name="com.example.myapplication2222.CartActivity" />
-170-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:46:9-50
-170-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:46:19-47
+170-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:46:9-50
+170-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:46:19-47
 171        <activity android:name="com.example.myapplication2222.OcrActivity" />
-171-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:47:9-49
-171-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:47:19-46
+171-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:47:9-49
+171-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:47:19-46
 172        <activity android:name="com.example.myapplication2222.OrderSummaryActivity" />
-172-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:48:9-58
-172-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:48:19-55
+172-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:48:9-58
+172-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:48:19-55
 173        <activity android:name="com.example.myapplication2222.PaymentActivity" />
-173-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:49:9-53
-173-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:49:19-50
+173-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:49:9-53
+173-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:49:19-50
 174        <activity android:name="com.example.myapplication2222.InventoryActivity" />
-174-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:50:9-55
-174-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:50:19-52
+174-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:50:9-55
+174-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:50:19-52
 175        <activity android:name="com.example.myapplication2222.PaymentSuccessActivity" />
-175-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:51:9-60
-175-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:51:19-57
+175-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:51:9-60
+175-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:51:19-57
 176        <activity android:name="com.example.myapplication2222.LoginActivity" />
-176-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:52:9-51
-176-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:52:19-48
+176-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:52:9-51
+176-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:52:19-48
 177        <activity android:name="com.example.myapplication2222.SignupActivity" />
-177-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:53:9-51
-177-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:53:19-49
+177-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:53:9-51
+177-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:53:19-49
 178        <activity android:name="com.example.myapplication2222.ProfileManagementActivity" />
+<<<<<<< HEAD
 178-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:54:9-62
 178-->C:\Users\gsh56\AndroidStudioProjects\ocrmodification0909\app\src\main\AndroidManifest.xml:54:19-60
 179        <activity android:name="com.example.myapplication2222.FaceVerificationActivity" />
@@ -651,6 +656,295 @@
 327-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\6819a4f431cd52b5cb325213a8c6736f\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:50:9-57:19
 328            android:name="org.altbeacon.bluetooth.BluetoothTestJob"
 328-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\6819a4f431cd52b5cb325213a8c6736f\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:51:13-68
+=======
+178-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:54:9-62
+178-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:54:19-60
+179
+180        <meta-data
+180-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:57:9-59:35
+181            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+181-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:58:13-70
+182            android:value="ocr" />
+182-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:59:13-32
+183        <!-- To use multiple models: android:value="ocr,model2,model3" -->
+184        <!-- BeaconService 명시적 선언 추가 -->
+185        <service
+185-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:62:9-65:33
+186            android:name="org.altbeacon.beacon.service.BeaconService"
+186-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:63:13-70
+187            android:enabled="true"
+187-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:30:13-35
+188            android:exported="false"
+188-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:64:13-37
+189            android:foregroundServiceType="location"
+189-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:32:13-53
+190            android:isolatedProcess="false"
+190-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:33:13-44
+191            android:label="beacon" />
+191-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:34:13-35
+192        <!-- Bootpay 사용을 위한 메타데이터 -->
+193        <meta-data
+193-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:67:9-69:56
+194            android:name="BOOTPAY_APPLICATION_ID"
+194-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:68:13-50
+195            android:value="66f67f77a3175898bd6e4bfe" />
+195-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:69:13-53
+196        <meta-data
+196-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:71:9-73:76
+197            android:name="BOOTPAY_PRIVATE_KEY"
+197-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:72:13-47
+198            android:value="BQuS/IErpSLPUUAqFFXTz4VA2LP9GBo7rDEOKLcA3Hw=" />
+198-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:73:13-73
+199        <meta-data
+199-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:74:9-76:69
+200            android:name="com.google.android.gms.version"
+200-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:75:13-58
+201            android:value="@integer/google_play_services_version" />
+201-->C:\Users\gsh56\AndroidStudioProjects\kartrider1015\app\src\main\AndroidManifest.xml:76:13-66
+202
+203        <activity
+203-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:29:9-46:20
+204            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+204-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:30:13-80
+205            android:excludeFromRecents="true"
+205-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:31:13-46
+206            android:exported="true"
+206-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:32:13-36
+207            android:launchMode="singleTask"
+207-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:33:13-44
+208            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+208-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:34:13-72
+209            <intent-filter>
+209-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:35:13-45:29
+210                <action android:name="android.intent.action.VIEW" />
+210-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:36:17-69
+210-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:36:25-66
+211
+212                <category android:name="android.intent.category.DEFAULT" />
+212-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:38:17-76
+212-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:38:27-73
+213                <category android:name="android.intent.category.BROWSABLE" />
+213-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:39:17-78
+213-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:39:27-75
+214
+215                <data
+215-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:41:17-44:51
+216                    android:host="firebase.auth"
+216-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:42:21-49
+217                    android:path="/"
+217-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:43:21-37
+218                    android:scheme="genericidp" />
+218-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:44:21-48
+219            </intent-filter>
+220        </activity>
+221        <activity
+221-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:47:9-64:20
+222            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+222-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:48:13-79
+223            android:excludeFromRecents="true"
+223-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:49:13-46
+224            android:exported="true"
+224-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:50:13-36
+225            android:launchMode="singleTask"
+225-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:51:13-44
+226            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+226-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:52:13-72
+227            <intent-filter>
+227-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:53:13-63:29
+228                <action android:name="android.intent.action.VIEW" />
+228-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:36:17-69
+228-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:36:25-66
+229
+230                <category android:name="android.intent.category.DEFAULT" />
+230-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:38:17-76
+230-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:38:27-73
+231                <category android:name="android.intent.category.BROWSABLE" />
+231-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:39:17-78
+231-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:39:27-75
+232
+233                <data
+233-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:41:17-44:51
+234                    android:host="firebase.auth"
+234-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:42:21-49
+235                    android:path="/"
+235-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:43:21-37
+236                    android:scheme="recaptcha" />
+236-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:44:21-48
+237            </intent-filter>
+238        </activity>
+239
+240        <service
+240-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:66:9-72:19
+241            android:name="com.google.firebase.components.ComponentDiscoveryService"
+241-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:67:13-84
+242            android:directBootAware="true"
+242-->[com.google.firebase:firebase-common:21.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\e7a4344b97766f62d49bda28a5fd402e\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:32:13-43
+243            android:exported="false" >
+243-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:68:13-37
+244            <meta-data
+244-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:69:13-71:85
+245                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+245-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:70:17-109
+246                android:value="com.google.firebase.components.ComponentRegistrar" />
+246-->[com.google.firebase:firebase-auth:23.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7c7da62207df71799df999c37b294c24\transformed\jetified-firebase-auth-23.0.0\AndroidManifest.xml:71:17-82
+247            <meta-data
+247-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7ba5257c25fcd84744c11a61bc775353\transformed\jetified-firebase-firestore-25.1.0\AndroidManifest.xml:17:13-19:85
+248                android:name="com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar"
+248-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7ba5257c25fcd84744c11a61bc775353\transformed\jetified-firebase-firestore-25.1.0\AndroidManifest.xml:18:17-122
+249                android:value="com.google.firebase.components.ComponentRegistrar" />
+249-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7ba5257c25fcd84744c11a61bc775353\transformed\jetified-firebase-firestore-25.1.0\AndroidManifest.xml:19:17-82
+250            <meta-data
+250-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7ba5257c25fcd84744c11a61bc775353\transformed\jetified-firebase-firestore-25.1.0\AndroidManifest.xml:20:13-22:85
+251                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+251-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7ba5257c25fcd84744c11a61bc775353\transformed\jetified-firebase-firestore-25.1.0\AndroidManifest.xml:21:17-111
+252                android:value="com.google.firebase.components.ComponentRegistrar" />
+252-->[com.google.firebase:firebase-firestore:25.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\7ba5257c25fcd84744c11a61bc775353\transformed\jetified-firebase-firestore-25.1.0\AndroidManifest.xml:22:17-82
+253            <meta-data
+253-->[com.google.android.gms:play-services-measurement-api:22.1.2] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\65e273581488eb0b566e51720520fea4\transformed\jetified-play-services-measurement-api-22.1.2\AndroidManifest.xml:37:13-39:85
+254                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+254-->[com.google.android.gms:play-services-measurement-api:22.1.2] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\65e273581488eb0b566e51720520fea4\transformed\jetified-play-services-measurement-api-22.1.2\AndroidManifest.xml:38:17-139
+255                android:value="com.google.firebase.components.ComponentRegistrar" />
+255-->[com.google.android.gms:play-services-measurement-api:22.1.2] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\65e273581488eb0b566e51720520fea4\transformed\jetified-play-services-measurement-api-22.1.2\AndroidManifest.xml:39:17-82
+256            <meta-data
+256-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\83419b883018e74bd9276f5b31101658\transformed\jetified-firebase-installations-18.0.0\AndroidManifest.xml:15:13-17:85
+257                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+257-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\83419b883018e74bd9276f5b31101658\transformed\jetified-firebase-installations-18.0.0\AndroidManifest.xml:16:17-130
+258                android:value="com.google.firebase.components.ComponentRegistrar" />
+258-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\83419b883018e74bd9276f5b31101658\transformed\jetified-firebase-installations-18.0.0\AndroidManifest.xml:17:17-82
+259            <meta-data
+259-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\83419b883018e74bd9276f5b31101658\transformed\jetified-firebase-installations-18.0.0\AndroidManifest.xml:18:13-20:85
+260                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+260-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\83419b883018e74bd9276f5b31101658\transformed\jetified-firebase-installations-18.0.0\AndroidManifest.xml:19:17-127
+261                android:value="com.google.firebase.components.ComponentRegistrar" />
+261-->[com.google.firebase:firebase-installations:18.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\83419b883018e74bd9276f5b31101658\transformed\jetified-firebase-installations-18.0.0\AndroidManifest.xml:20:17-82
+262            <meta-data
+262-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\af4c9b53ac3556e0acfe31e1ada869e2\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:12:13-14:85
+263                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+263-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\af4c9b53ac3556e0acfe31e1ada869e2\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:13:17-116
+264                android:value="com.google.firebase.components.ComponentRegistrar" />
+264-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\af4c9b53ac3556e0acfe31e1ada869e2\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:14:17-82
+265            <meta-data
+265-->[com.google.firebase:firebase-common:21.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\e7a4344b97766f62d49bda28a5fd402e\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:35:13-37:85
+266                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+266-->[com.google.firebase:firebase-common:21.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\e7a4344b97766f62d49bda28a5fd402e\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:36:17-109
+267                android:value="com.google.firebase.components.ComponentRegistrar" />
+267-->[com.google.firebase:firebase-common:21.0.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\e7a4344b97766f62d49bda28a5fd402e\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:37:17-82
+268        </service>
+269
+270        <receiver
+270-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:18:9-26:20
+271            android:name="org.altbeacon.beacon.startup.StartupBroadcastReceiver"
+271-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:19:13-81
+272            android:exported="false" >
+272-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:20:13-37
+273            <intent-filter>
+273-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:21:13-25:29
+274                <action android:name="android.intent.action.BOOT_COMPLETED" />
+274-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:22:17-79
+274-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:22:25-76
+275                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+275-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:23:17-87
+275-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:23:25-84
+276                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+276-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:24:17-90
+276-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:24:25-87
+277            </intent-filter>
+278        </receiver>
+279
+280        <service
+280-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:35:9-38:40
+281            android:name="org.altbeacon.beacon.BeaconIntentProcessor"
+281-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:36:13-70
+282            android:enabled="true"
+282-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:37:13-35
+283            android:exported="false" />
+283-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:38:13-37
+284        <service
+284-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:39:9-49:19
+285            android:name="org.altbeacon.beacon.service.ScanJob"
+285-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:40:13-64
+286            android:exported="false"
+286-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:41:13-37
+287            android:permission="android.permission.BIND_JOB_SERVICE" >
+287-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:42:13-69
+288            <meta-data
+288-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:43:13-45:45
+289                android:name="immediateScanJobId"
+289-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:44:17-50
+290                android:value="208352939" />
+290-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:45:17-42
+291            <meta-data
+291-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:46:13-48:45
+292                android:name="periodicScanJobId"
+292-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:47:17-49
+293                android:value="208352940" />
+293-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:48:17-42
+294        </service>
+295        <service
+295-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:50:9-57:19
+296            android:name="org.altbeacon.bluetooth.BluetoothTestJob"
+296-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:51:13-68
+297            android:exported="false"
+297-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:52:13-37
+298            android:permission="android.permission.BIND_JOB_SERVICE" >
+298-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:53:13-69
+299            <meta-data
+299-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:54:13-56:46
+300                android:name="jobId"
+300-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:55:17-37
+301                android:value="1799803768" />
+301-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\14c5dc26115100a227c0c7926f7d6516\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:56:17-43
+302        </service>
+303        <service
+303-->[androidx.camera:camera-camera2:1.3.4] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\3d0a0c192fe713b32f4d7211965cc177\transformed\jetified-camera-camera2-1.3.4\AndroidManifest.xml:24:9-33:19
+304            android:name="androidx.camera.core.impl.MetadataHolderService"
+304-->[androidx.camera:camera-camera2:1.3.4] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\3d0a0c192fe713b32f4d7211965cc177\transformed\jetified-camera-camera2-1.3.4\AndroidManifest.xml:25:13-75
+305            android:enabled="false"
+305-->[androidx.camera:camera-camera2:1.3.4] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\3d0a0c192fe713b32f4d7211965cc177\transformed\jetified-camera-camera2-1.3.4\AndroidManifest.xml:26:13-36
+306            android:exported="false" >
+306-->[androidx.camera:camera-camera2:1.3.4] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\3d0a0c192fe713b32f4d7211965cc177\transformed\jetified-camera-camera2-1.3.4\AndroidManifest.xml:27:13-37
+307            <meta-data
+307-->[androidx.camera:camera-camera2:1.3.4] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\3d0a0c192fe713b32f4d7211965cc177\transformed\jetified-camera-camera2-1.3.4\AndroidManifest.xml:30:13-32:89
+308                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+308-->[androidx.camera:camera-camera2:1.3.4] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\3d0a0c192fe713b32f4d7211965cc177\transformed\jetified-camera-camera2-1.3.4\AndroidManifest.xml:31:17-103
+309                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+309-->[androidx.camera:camera-camera2:1.3.4] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\3d0a0c192fe713b32f4d7211965cc177\transformed\jetified-camera-camera2-1.3.4\AndroidManifest.xml:32:17-86
+310        </service>
+311        <service
+311-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\d4709099bae67c4316dee7efa3209722\transformed\jetified-play-services-mlkit-text-recognition-common-19.1.0\AndroidManifest.xml:9:9-15:19
+312            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+312-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\d4709099bae67c4316dee7efa3209722\transformed\jetified-play-services-mlkit-text-recognition-common-19.1.0\AndroidManifest.xml:10:13-91
+313            android:directBootAware="true"
+313-->[com.google.mlkit:common:18.11.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\f42072dc0e1aba7d0e4f5e1604d2b46d\transformed\jetified-common-18.11.0\AndroidManifest.xml:17:13-43
+314            android:exported="false" >
+314-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\d4709099bae67c4316dee7efa3209722\transformed\jetified-play-services-mlkit-text-recognition-common-19.1.0\AndroidManifest.xml:11:13-37
+315            <meta-data
+315-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\d4709099bae67c4316dee7efa3209722\transformed\jetified-play-services-mlkit-text-recognition-common-19.1.0\AndroidManifest.xml:12:13-14:85
+316                android:name="com.google.firebase.components:com.google.mlkit.vision.text.internal.TextRegistrar"
+316-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\d4709099bae67c4316dee7efa3209722\transformed\jetified-play-services-mlkit-text-recognition-common-19.1.0\AndroidManifest.xml:13:17-114
+317                android:value="com.google.firebase.components.ComponentRegistrar" />
+317-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.1.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\d4709099bae67c4316dee7efa3209722\transformed\jetified-play-services-mlkit-text-recognition-common-19.1.0\AndroidManifest.xml:14:17-82
+318            <meta-data
+318-->[com.google.mlkit:vision-common:17.3.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\fab12db429f2e9c2589583c1596ce0a7\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:12:13-14:85
+319                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+319-->[com.google.mlkit:vision-common:17.3.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\fab12db429f2e9c2589583c1596ce0a7\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:13:17-124
+320                android:value="com.google.firebase.components.ComponentRegistrar" />
+320-->[com.google.mlkit:vision-common:17.3.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\fab12db429f2e9c2589583c1596ce0a7\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:14:17-82
+321            <meta-data
+321-->[com.google.mlkit:common:18.11.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\f42072dc0e1aba7d0e4f5e1604d2b46d\transformed\jetified-common-18.11.0\AndroidManifest.xml:20:13-22:85
+322                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+322-->[com.google.mlkit:common:18.11.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\f42072dc0e1aba7d0e4f5e1604d2b46d\transformed\jetified-common-18.11.0\AndroidManifest.xml:21:17-120
+323                android:value="com.google.firebase.components.ComponentRegistrar" />
+323-->[com.google.mlkit:common:18.11.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\f42072dc0e1aba7d0e4f5e1604d2b46d\transformed\jetified-common-18.11.0\AndroidManifest.xml:22:17-82
+324        </service>
+325
+326        <provider
+326-->[com.google.mlkit:common:18.11.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\f42072dc0e1aba7d0e4f5e1604d2b46d\transformed\jetified-common-18.11.0\AndroidManifest.xml:9:9-13:38
+327            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+327-->[com.google.mlkit:common:18.11.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\f42072dc0e1aba7d0e4f5e1604d2b46d\transformed\jetified-common-18.11.0\AndroidManifest.xml:10:13-78
+328            android:authorities="com.example.myapplication2222.mlkitinitprovider"
+328-->[com.google.mlkit:common:18.11.0] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\f42072dc0e1aba7d0e4f5e1604d2b46d\transformed\jetified-common-18.11.0\AndroidManifest.xml:11:13-69
+>>>>>>> a95fe2185dbdc18b736214261d34c58c5389df56
 329            android:exported="false"
 329-->[org.altbeacon:android-beacon-library:2.20.6] C:\Users\gsh56\AndroidStudioProjects\cart0723.1\gradle\wrapper\wrapper\dists\caches\8.10.2\transforms\6819a4f431cd52b5cb325213a8c6736f\transformed\jetified-android-beacon-library-2.20.6\AndroidManifest.xml:52:13-37
 330            android:permission="android.permission.BIND_JOB_SERVICE" >

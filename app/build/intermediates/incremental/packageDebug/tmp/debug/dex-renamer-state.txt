@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Mon Oct 21 22:49:01 KST 2024
 base.0=C\:\\Users\\gsh56\\AndroidStudioProjects\\ocrmodification0909\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\gsh56\\AndroidStudioProjects\\ocrmodification0909\\app\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\10\\classes.dex
@@ -14,6 +15,16 @@ base.6=C\:\\Users\\gsh56\\AndroidStudioProjects\\ocrmodification0909\\app\\build
 base.7=C\:\\Users\\gsh56\\AndroidStudioProjects\\ocrmodification0909\\app\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\8\\classes.dex
 base.8=C\:\\Users\\gsh56\\AndroidStudioProjects\\ocrmodification0909\\app\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\9\\classes.dex
 base.9=C\:\\Users\\gsh56\\AndroidStudioProjects\\ocrmodification0909\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+=======
+#Wed Oct 16 14:21:12 KST 2024
+base.0=C\:\\Users\\gsh56\\AndroidStudioProjects\\kartrider1015\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=C\:\\Users\\gsh56\\AndroidStudioProjects\\kartrider1015\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.2=C\:\\Users\\gsh56\\AndroidStudioProjects\\kartrider1015\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\3\\classes.dex
+base.3=C\:\\Users\\gsh56\\AndroidStudioProjects\\kartrider1015\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\8\\classes.dex
+base.4=C\:\\Users\\gsh56\\AndroidStudioProjects\\kartrider1015\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.5=C\:\\Users\\gsh56\\AndroidStudioProjects\\kartrider1015\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
+base.6=C\:\\Users\\gsh56\\AndroidStudioProjects\\kartrider1015\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes4.dex
+>>>>>>> a95fe2185dbdc18b736214261d34c58c5389df56
 path.0=classes.dex
 path.1=10/classes.dex
 path.10=3/classes.dex

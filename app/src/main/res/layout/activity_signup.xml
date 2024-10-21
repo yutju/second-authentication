@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:hint="이메일"
         android:padding="16dp"
-        android:layout_below="@id/editTextName"
+        android:layout_below="@id/editTextUserName"
         android:layout_marginTop="20dp"
         android:inputType="textEmailAddress" />
 
@@ -62,12 +62,10 @@
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true" />
 
-    <!-- 회원가입 로딩 상태를 표시하는 ProgressBar -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone" /> <!-- 초기에는 숨겨진 상태 -->
-
+        android:visibility="gone" />
 </RelativeLayout>
