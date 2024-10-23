@@ -72,7 +72,7 @@ public class FaceVerificationActivity extends AppCompatActivity {
     private ImageView liveFaceImageView;
     private Bitmap idCardFaceBitmap;
     private boolean isFaceMatched = false;
-    private static final float FACE_MATCH_THRESHOLD = 0.9f;
+    private static final float FACE_MATCH_THRESHOLD = 0.75f;
     private CameraSelector cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA;
     private Interpreter tflite; // 기존 mobileFaceNet을 tflite로 대체
 
