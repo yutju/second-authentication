@@ -68,6 +68,8 @@
         android:text="저장"
         android:layout_below="@id/editTextConfirmNewPassword"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#4169E1"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

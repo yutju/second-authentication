@@ -8,4 +8,6 @@
     <color name="color_on_secondary">#000000</color>
     <color name="color_red">#B00020</color> <!-- Snackbar 배경 색상 -->
     <color name="color_white">#FFFFFF</color> <!-- Snackbar 텍스트 색상 -->
+    <color name="blue">#2196F3</color>
+
 </resources>

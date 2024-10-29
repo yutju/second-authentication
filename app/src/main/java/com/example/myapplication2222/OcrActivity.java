@@ -1,5 +1,8 @@
 package com.example.myapplication2222;
 
+
+
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -65,6 +68,7 @@ public class OcrActivity extends AppCompatActivity {
     private TextView resultTextView;
     private TextView adultVerificationResult;
     private TextView dobExtracted;
+    private TextView issueDateTextView;
     private LinearLayout adultVerificationLayout;
     private LinearLayout nameVerificationLayout;
     private TextView loggedInUserName;
@@ -90,6 +94,7 @@ public class OcrActivity extends AppCompatActivity {
         adultVerificationLayout = findViewById(R.id.adultVerificationLayout);
         nameVerificationLayout = findViewById(R.id.nameVerificationLayout);
         dobExtracted = findViewById(R.id.dobExtracted);
+        issueDateTextView = findViewById(R.id.issueDateTextView);
 
         loggedInUserName = findViewById(R.id.loggedInUserName);
         idCardName = findViewById(R.id.idCardName);
@@ -238,10 +243,12 @@ public class OcrActivity extends AppCompatActivity {
                         String recognizedText = text.getText();
                         Log.d("OcrActivity", "인식된 텍스트: " + recognizedText);
 
-                        // 생년월일, 이름 및 주민등록번호 추출
+                        // 생년월일, 이름, 주민등록번호, 신분증 발급일자 추출
                         String dob = findDateOfBirth(recognizedText);
                         String name = findName(recognizedText);
                         String ssn = findSSN(recognizedText);
+                        String issueDate = findIssueDate(recognizedText);
+
                         if (ssn != null) {
                             ssn = ssn.replaceAll("\\s+", "").replaceAll("-", ""); // 공백과 하이픈 제거
                         }
@@ -249,71 +256,11 @@ public class OcrActivity extends AppCompatActivity {
                         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
                         // 주민등록번호에 하이픈 추가
-                        String ssnWithHyphen = null;
-                        if (ssn != null && ssn.length() == 13) {
-                            ssnWithHyphen = ssn.substring(0, 6) + "-" + ssn.substring(6);
-                        }
-                        final String finalSSNWithHyphen = ssnWithHyphen;
+                        String ssnWithHyphen = addHyphenToSSN(ssn);
 
                         runOnUiThread(() -> {
-                            if (dob != null && !isMinor(dob)) {
-                                // 1차 성인 인증 진행
-                                adultVerificationLayout.setVisibility(View.VISIBLE);
-                                adultVerificationResult.setText("1차 성인 인증을 진행합니다...");
-
-                                new Handler().postDelayed(() -> {
-                                    // 1차 성인 인증 성공
-                                    dobExtracted.setText("추출된 생년월일: " + dob);
-                                    dobExtracted.setVisibility(View.VISIBLE);
-                                    adultVerificationResult.setText("1차 성인 인증이 완료되었습니다.");
-
-                                    // 2차 본인 인증 진행 (지연 후 진행)
-                                    nameComparisonResult.setText("2차 본인 인증을 진행합니다...");
-                                    nameVerificationLayout.setVisibility(View.VISIBLE);
-
-                                    new Handler().postDelayed(() -> {
-                                        if (name != null && finalSSNWithHyphen != null && currentUser != null) {
-                                            getCurrentUserSSN(currentUser.getUid(), currentUserSSN -> {
-                                                if (currentUserSSN != null) {
-                                                    // 주민등록번호 비교 시 '-'를 제거하고 비교
-                                                    currentUserSSN = currentUserSSN.replace("-", "");
-
-                                                }else {
-                                                    // 오류 처리
-                                                    runOnUiThread(() -> {
-                                                        Toast.makeText(OcrActivity.this, "사용자 정보를 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show();
-                                                    });
-                                                }
-
-                                                final String currentUserName = currentUser.getDisplayName();
-                                                final String finalCurrentUserSSN = currentUserSSN;
-
-                                                boolean isNameMatch = currentUserName != null && currentUserName.equalsIgnoreCase(name);
-                                                boolean isSSNMatch = finalCurrentUserSSN != null && finalCurrentUserSSN.equals(finalSSNWithHyphen.replace("-", ""));
-
-                                                runOnUiThread(() -> {
-                                                    idCardName.setText("신분증 이름: " + name);
-                                                    loggedInUserName.setText("로그인된 사용자 이름: " + currentUserName);
-
-                                                    if (isNameMatch && isSSNMatch) {
-                                                        nameComparisonResult.setText("2차 본인 인증이 완료되었습니다.");
-                                                        // FaceVerificationActivity로 이동
-                                                        Intent intent = new Intent(OcrActivity.this, FaceVerificationActivity.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    } else {
-                                                        nameComparisonResult.setText("본인 인증 실패: 이름 또는 주민등록번호가 일치하지 않습니다.");
-                                                    }
-                                                });
-                                            });
-                                        } else {
-                                            runOnUiThread(() -> {
-                                                resultTextView.setText("본인 인증 실패: 이름 또는 주민등록번호를 확인할 수 없습니다.");
-                                                Toast.makeText(OcrActivity.this, "본인 인증 실패: 이름 또는 주민등록번호를 확인할 수 없습니다.", Toast.LENGTH_SHORT).show();
-                                            });
-                                        }
-                                    }, 1500); // 1.5초 후 2차 본인 인증 진행
-                                }, 1500); // 1.5초 후 1차 성인 인증 완료 메시지
+                            if (dob != null && !isMinor(dob) && issueDate != null) {
+                                performAdultVerification(dob, name, ssnWithHyphen, currentUser, issueDate);
                             } else if (dob != null) {
                                 resultTextView.setText("미성년자입니다.");
                                 Toast.makeText(OcrActivity.this, "미성년자는 구매가 불가합니다.", Toast.LENGTH_SHORT).show();
@@ -339,6 +286,100 @@ public class OcrActivity extends AppCompatActivity {
         }
     }
 
+    // 주민등록번호에 하이픈 추가
+    private String addHyphenToSSN(String ssn) {
+        if (ssn != null && ssn.length() == 13) {
+            return ssn.substring(0, 6) + "-" + ssn.substring(6);
+        }
+        return null;
+    }
+
+    // 성인 인증 절차 수행
+    private void performAdultVerification(String dob, String name, String ssnWithHyphen, FirebaseUser currentUser, String issueDate) {
+        adultVerificationLayout.setVisibility(View.VISIBLE);
+        adultVerificationResult.setText("1차 성인 인증을 진행합니다...");
+
+
+
+        new Handler().postDelayed(() -> {
+            dobExtracted.setText("추출된 생년월일: " + dob);
+            dobExtracted.setVisibility(View.VISIBLE);
+            issueDateTextView.setText("추출된 발급일자: " + issueDate); // 발급일자 UI에 설정
+            issueDateTextView.setVisibility(View.VISIBLE); // UI에 보이게 설정
+            adultVerificationResult.setText("1차 성인 인증이 완료되었습니다.");
+
+            nameComparisonResult.setText("2차 본인 인증을 진행합니다...");
+            nameVerificationLayout.setVisibility(View.VISIBLE);
+
+            new Handler().postDelayed(() -> {
+                if (name != null && ssnWithHyphen != null && currentUser != null) {
+                    getCurrentUserSSN(currentUser.getUid(), currentUserSSN -> {
+                        if (currentUserSSN != null) {
+                            currentUserSSN = currentUserSSN.replace("-", ""); // 하이픈 제거
+                        }
+
+                        final String currentUserName = currentUser.getDisplayName();
+                        boolean isNameMatch = currentUserName != null && currentUserName.equalsIgnoreCase(name);
+                        boolean isSSNMatch = currentUserSSN != null && currentUserSSN.equals(ssnWithHyphen.replace("-", ""));
+
+                        // Firestore에서 로그인된 사용자의 발급일자 가져오기
+                        getUserIssueDate(currentUser.getUid(), currentUserIssueDate -> {
+                            runOnUiThread(() -> {
+                                idCardName.setText("신분증 이름: " + name);
+                                loggedInUserName.setText("로그인된 사용자 이름: " + currentUserName);
+
+                                if (isNameMatch && isSSNMatch) {
+                                    // 발급일자 비교
+                                    boolean isIssueDateMatch = currentUserIssueDate != null && currentUserIssueDate.equals(issueDate);
+                                    if (isIssueDateMatch) {
+                                        nameComparisonResult.setText("2차 본인 인증이 완료되었습니다.");
+                                        // FaceVerificationActivity로 이동
+                                        Intent intent = new Intent(OcrActivity.this, FaceVerificationActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        nameComparisonResult.setText("본인 인증 실패: 발급일자가 일치하지 않습니다.");
+                                    }
+                                } else {
+                                    nameComparisonResult.setText("본인 인증 실패: 이름 또는 주민등록번호가 일치하지 않습니다.");
+                                }
+                            });
+                        });
+                    });
+                } else {
+                    runOnUiThread(() -> {
+                        resultTextView.setText("본인 인증 실패: 이름 또는 주민등록번호를 확인할 수 없습니다.");
+                        Toast.makeText(OcrActivity.this, "본인 인증 실패: 이름 또는 주민등록번호를 확인할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            }, 1500); // 1.5초 후 2차 본인 인증 진행
+        }, 1500); // 1.5초 후 1차 성인 인증 완료 메시지
+    }
+
+    // Firestore에서 사용자의 발급일자를 가져오는 메서드 (콜백 방식으로 수정)
+    private void getUserIssueDate(String userId, FirestoreCallbackIssueDate callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userRef = db.collection("users").document(userId);
+
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String issueDate = documentSnapshot.getString("issueDate"); // 발급일자 가져오기
+                callback.onCallback(issueDate);
+            } else {
+                callback.onCallback(null);
+            }
+        }).addOnFailureListener(e -> {
+            Log.e("OcrActivity", "사용자 발급일자 가져오기 실패", e);
+            callback.onCallback(null);
+        });
+    }
+
+    // FirestoreCallback 인터페이스의 수정
+    private interface FirestoreCallbackIssueDate {
+        void onCallback(String issueDate);
+    }
+
+
     // Firestore에서 사용자의 주민등록번호를 가져오는 메서드 (콜백 방식으로 수정)
     private void getCurrentUserSSN(String userId, FirestoreCallback callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -360,6 +401,7 @@ public class OcrActivity extends AppCompatActivity {
     private interface FirestoreCallback {
         void onCallback(String ssn);
     }
+
     // 주민등록번호 찾기 추가
     private String findSSN(String text) {
         // 모든 공백 제거
@@ -375,8 +417,6 @@ public class OcrActivity extends AppCompatActivity {
         return null;
     }
 
-
-
     // 생년월일 찾기 개선
     private String findDateOfBirth(String text) {
         // 생년월일 형식 (YYMMDD)을 추출
@@ -385,13 +425,7 @@ public class OcrActivity extends AppCompatActivity {
         if (dobMatcher.find()) {
             String year = dobMatcher.group(1).substring(0, 2);
             int currentYear = Calendar.getInstance().get(Calendar.YEAR) % 100;
-            int parsedYear = Integer.parseInt(year);
-            String fullYear;
-            if (parsedYear <= currentYear) {
-                fullYear = "20" + year;
-            } else {
-                fullYear = "19" + year;
-            }
+            String fullYear = (Integer.parseInt(year) <= currentYear) ? "20" + year : "19" + year;
 
             String month = dobMatcher.group(1).substring(2, 4);
             String day = dobMatcher.group(1).substring(4, 6);
@@ -400,65 +434,120 @@ public class OcrActivity extends AppCompatActivity {
         return null;
     }
 
+    // 이름 찾기
     private String findName(String text) {
         // 주민등록번호 패턴을 찾아서 그 위의 텍스트를 찾음
         Pattern ssnPattern = Pattern.compile("\\d{6}-\\d{7}");
         Matcher ssnMatcher = ssnPattern.matcher(text);
 
         if (ssnMatcher.find()) {
-            // 주민등록번호의 위치를 기준으로 그 위의 텍스트를 찾음
             int ssnStartIndex = ssnMatcher.start();
-
-            // 주민등록번호 위의 부분 텍스트 추출
             String textBeforeSSN = text.substring(0, ssnStartIndex).trim();
-
-            // 마지막 줄의 이름 추출
             String[] lines = textBeforeSSN.split("\\n");
             if (lines.length > 0) {
-                String possibleNameLine = lines[lines.length - 1].trim();
-
-                // 괄호 안의 텍스트 제거
-                possibleNameLine = possibleNameLine.replaceAll("\\([^)]*\\)", "").trim();
-
-                // 한글 이름 패턴 (2~4자)
-                Pattern namePattern = Pattern.compile("[가-힣]{2,4}");
-                Matcher nameMatcher = namePattern.matcher(possibleNameLine);
-                if (nameMatcher.find()) {
-                    // 이름을 찾아서 전처리 후 반환
-                    return cleanName(nameMatcher.group(0));
+                String possibleName = lines[lines.length - 1].trim();
+                if (!possibleName.isEmpty()) {
+                    return possibleName;
                 }
             }
         }
-
         return null;
     }
 
-    // 이름 전처리 메서드 개선 (괄호 및 특수문자 제거)
-    private String cleanName(String name) {
-        // 한글만 남기기 (특수문자, 괄호, 숫자, 영어 등 제거)
-        return name.replaceAll("[^가-힣]", "");
+    // 신분증 발급일자 찾기 (주민등록증 및 운전면허증 구분)
+    private String findIssueDate(String text) {
+        // 모든 공백 제거
+        text = text.replaceAll("\\s+", "");
+
+        // 주민등록증의 발급일자 패턴: 'yyyy.mm.dd.'
+        Pattern idCardIssueDatePattern = Pattern.compile("(\\d{4}[.])(0?\\d{1,2})([.])(0?\\d{1,2})([.])");
+        Matcher idCardMatcher = idCardIssueDatePattern.matcher(text);
+
+        // 운전면허증의 발급일자 패턴: 'yyyy.mm.dd.' 뒤에 발급 기관의 이름이 오는 경우
+        Pattern licenseIssueDatePattern = Pattern.compile("(\\d{4}[.])(0?\\d{1,2})([.])(0?\\d{1,2})([.])([가-힣]+청장|[가-힣]+관|[가-힣]+청|[가-힣]+소장|[가-힣]+구청장|[가-힣]+위원장)([^\\d]*)");
+        Matcher licenseMatcher = licenseIssueDatePattern.matcher(text);
+
+        String issueDate = null;
+
+        // 운전면허증 패턴 검사 (발급 기관의 이름이 있는 경우만)
+        if (licenseMatcher.find()) {
+            // 발급일자와 발급 기관의 이름이 모두 존재하는 경우에만 추출
+            if (licenseMatcher.group(6) != null) { // 발급 기관의 이름이 그룹 6에 해당
+                // 운전면허증의 발급일자 추출 (마지막 '.' 제거)
+                issueDate = licenseMatcher.group(1) + licenseMatcher.group(2) + "." + licenseMatcher.group(4);
+            }
+        }
+        // 주민등록증 패턴 검사
+        else if (idCardMatcher.find()) {
+            // 주민등록증의 발급일자 추출 (마지막 '.' 제거)
+            issueDate = idCardMatcher.group(1) + licenseMatcher.group(2) + "." + idCardMatcher.group(4);
+        }
+
+        // 발급일자가 추출된 경우, 두 자리 형식으로 변환
+        if (issueDate != null) {
+            issueDate = formatIssueDate(issueDate);
+        } else {
+            // 발급일자가 추출되지 않은 경우
+            System.out.println("발급일자 추출 실패");
+        }
+
+        return issueDate;
     }
 
-
-
-    // 성인 여부 확인
-    private boolean isMinor(String dob) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault());
+    // 발급일자를 'yyyy.MM.dd' 형식으로 맞추는 메서드
+    private String formatIssueDate(String issueDate) {
         try {
-            Date birthDate = sdf.parse(dob);
-            if (birthDate != null) {
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.YEAR, -19); // 19세 이상 체크
-                return birthDate.after(cal.getTime());
+            // '.'을 기준으로 분리하여 각 부분을 두 자리로 맞춤
+            String[] dateParts = issueDate.split("[.]");
+            if (dateParts.length == 3) {
+                String year = dateParts[0];
+                String month = String.format("%02d", Integer.parseInt(dateParts[1]));
+                String day = String.format("%02d", Integer.parseInt(dateParts[2]));
+                return year + "." + month + "." + day;
             }
+        } catch (NumberFormatException e) {
+            Log.e("OcrActivity", "발급일자 형식 변환 실패", e);
+        }
+        return issueDate; // 기본적으로 입력받은 형식 그대로 반환
+    }
+
+    // 성인 여부 판단
+    private boolean isMinor(String dob) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+            // 생년월일에서 숫자만 추출하여 파싱
+            Date birthDate = sdf.parse(dob.replaceAll("[^0-9]", ""));
+            Calendar adultBoundary = Calendar.getInstance();
+            adultBoundary.add(Calendar.YEAR, -19);
+            return birthDate.after(adultBoundary.getTime());
         } catch (ParseException e) {
             Log.e("OcrActivity", "생년월일 파싱 실패", e);
+            return true; // 파싱 실패 시 기본적으로 미성년자로 간주
         }
-        return true; // 파싱 실패 시 미성년자로 간주
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        cameraExecutor.shutdown();
+
+    // 발급일자 비교 메서드
+    private void isIssueDateMatch(String userId, String issueDate, IssueDateCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userRef = db.collection("users").document(userId);
+
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String userIssueDate = documentSnapshot.getString("issueDate");
+                // 사용자가 가져온 발급일자와 비교
+                boolean isMatch = userIssueDate != null && userIssueDate.equals(issueDate);
+                callback.onCallback(isMatch);
+            } else {
+                callback.onCallback(false);
+            }
+        }).addOnFailureListener(e -> {
+            Log.e("OcrActivity", "사용자 발급일자 가져오기 실패", e);
+            callback.onCallback(false);
+        });
+    }
+
+    // 발급일자 비교 콜백 인터페이스
+    private interface IssueDateCallback {
+        void onCallback(boolean isMatch);
     }
 }

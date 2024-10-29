@@ -1,5 +1,6 @@
 R_DEF: Internal format may change without notice
 local
+color blue
 color color_on_primary
 color color_on_secondary
 color color_primary
@@ -38,22 +39,20 @@ id editTextConfirmNewPassword
 id editTextConfirmPassword
 id editTextCurrentPassword
 id editTextEmail
+id editTextIssueDate
 id editTextName
 id editTextNewPassword
 id editTextPassword
 id editTextSSN
-id editTextUserName
-id faceComparisonResult
-id faceVerificationLayout
+id faceOverlay
 id faceVerificationTitle
-id facestartButton
 id idCardFaceImageView
 id idCardName
 id imageView
 id increaseButton
 id inventoryRecyclerView
+id issueDateTextView
 id liveFaceImageView
-id livePhotoButton
 id loggedInUserName
 id login_button
 id manage_profile_button
@@ -91,6 +90,7 @@ id searchLabelTextView
 id signup_button
 id signup_text
 id similarityTextView
+id ssnTextView
 id stockTextView
 id stock_button
 id switchCameraButton
@@ -103,6 +103,7 @@ id total_quantity
 id total_summary
 id verifyFaceButton
 layout activity_cart
+layout activity_face_overlay
 layout activity_face_verification
 layout activity_inventory
 layout activity_login

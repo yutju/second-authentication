@@ -34,7 +34,7 @@
             android:layout_marginTop="20dp" />
 
         <!-- 로그인 버튼 -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/login_button"
             android:layout_width="300dp"
             android:layout_height="60dp"
@@ -42,10 +42,12 @@
             android:textSize="30sp"
             android:layout_below="@id/textView"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="25dp"
+            app:backgroundTint="#4169E1"
+            android:textColor="#FFFFFF" />
 
         <!-- 지도 버튼 -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/map_button"
             android:layout_width="300dp"
             android:layout_height="60dp"
@@ -53,10 +55,12 @@
             android:textSize="30sp"
             android:layout_below="@id/login_button"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="25dp"
+            app:backgroundTint="#4169E1"
+            android:textColor="#FFFFFF" />
 
         <!-- 장바구니 버튼 -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/cart_button"
             android:layout_width="300dp"
             android:layout_height="60dp"
@@ -64,10 +68,12 @@
             android:textSize="30sp"
             android:layout_below="@id/map_button"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="25dp"
+            app:backgroundTint="#4169E1"
+            android:textColor="#FFFFFF" />
 
         <!-- 재고 조회 버튼 -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/stock_button"
             android:layout_width="300dp"
             android:layout_height="60dp"
@@ -75,10 +81,12 @@
             android:textSize="30sp"
             android:layout_below="@id/cart_button"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="25dp"
+            app:backgroundTint="#4169E1"
+            android:textColor="#FFFFFF" />
 
         <!-- 회원 정보 관리 버튼 -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/manage_profile_button"
             android:layout_width="300dp"
             android:layout_height="60dp"
@@ -86,6 +94,8 @@
             android:textSize="30sp"
             android:layout_below="@id/stock_button"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="25dp"
+            app:backgroundTint="#4169E1"
+            android:textColor="#FFFFFF" />
     </RelativeLayout>
 </ScrollView>

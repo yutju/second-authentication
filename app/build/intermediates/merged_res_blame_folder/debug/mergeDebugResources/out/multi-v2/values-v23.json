@@ -4,7 +4,7 @@
             "outputFile": "com.example.myapplication2222.app-mergeDebugResources-49:/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\caches\\8.10.2\\transforms\\906173e9712911cf64c20987626199bb\\transformed\\material-1.12.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\user\\AndroidStudio111112Projects1112\\kartrider\\.gradle\\caches\\8.10.2\\transforms\\906173e9712911cf64c20987626199bb\\transformed\\material-1.12.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,5,9,13,16,19,22,25,28,32",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\caches\\8.10.2\\transforms\\27b8f6dd294ac9fe0b3e99aea480de6b\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\user\\AndroidStudio111112Projects1112\\kartrider\\.gradle\\caches\\8.10.2\\transforms\\27b8f6dd294ac9fe0b3e99aea480de6b\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -42,7 +42,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\gsh56\\AndroidStudioProjects\\cart0723.1\\gradle\\wrapper\\wrapper\\dists\\caches\\8.10.2\\transforms\\dc2c3160aaf81531449a438970be2647\\transformed\\appcompat-1.7.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\user\\AndroidStudio111112Projects1112\\kartrider\\.gradle\\caches\\8.10.2\\transforms\\dc2c3160aaf81531449a438970be2647\\transformed\\appcompat-1.7.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,20,34,35,36,39,43,44,45,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",

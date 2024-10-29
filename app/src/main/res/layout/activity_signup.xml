@@ -1,66 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
-
-    <EditText
-        android:id="@+id/editTextUserName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="이름을 입력하세요"
-        android:padding="16dp"
-        android:layout_marginTop="20dp" />
+    android:padding="16dp"
+    tools:context=".SignupActivity">
 
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="이메일"
-        android:padding="16dp"
-        android:layout_below="@id/editTextUserName"
-        android:layout_marginTop="20dp"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:padding="16dp" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="비밀번호를 입력하세요"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
         android:padding="16dp"
         android:layout_below="@id/editTextEmail"
-        android:layout_marginTop="20dp"
-        android:inputType="textPassword" />
+        android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/editTextConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="비밀번호를 한 번 더 입력하세요"
+        android:hint="비밀번호 확인"
+        android:inputType="textPassword"
         android:padding="16dp"
         android:layout_below="@id/editTextPassword"
-        android:layout_marginTop="20dp"
-        android:inputType="textPassword" />
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="이름"
+        android:inputType="textPersonName"
+        android:padding="16dp"
+        android:layout_below="@id/editTextConfirmPassword"
+        android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/editTextSSN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="주민등록번호를 입력하세요 (형식: XXXXXX-XXXXXXX)"
-        android:padding="16dp"
-        android:layout_below="@id/editTextConfirmPassword"
-        android:layout_marginTop="20dp"
+        android:hint="주민등록번호 (형식: 123456-1234567)"
         android:inputType="number"
+        android:padding="16dp"
+        android:layout_below="@id/editTextName"
+        android:layout_marginTop="16dp"
         android:maxLength="14"
-        android:digits="0123456789" />
+        android:digits="0123456789-" />
+
+    <EditText
+        android:id="@+id/editTextIssueDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="발급일자 입력 (형식: YYYY.MM.DD)"
+        android:padding="16dp"
+        android:layout_below="@id/editTextSSN"
+        android:layout_marginTop="16dp"
+        android:inputType="text"
+        android:maxLength="10" />
 
     <Button
         android:id="@+id/signup_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="회원가입"
-        android:layout_below="@id/editTextSSN"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true" />
+        android:padding="16dp"
+        android:layout_below="@id/editTextIssueDate"
+        android:layout_marginTop="20dp" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -68,4 +82,5 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+
 </RelativeLayout>

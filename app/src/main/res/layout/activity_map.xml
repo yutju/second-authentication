@@ -33,7 +33,7 @@
         android:id="@+id/TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="실행 중..."
         android:textColor="#000000"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
@@ -48,11 +48,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="OnButtonClicked"
-        android:text="Run"
+        android:text="위치표시"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.5"/>
+        app:layout_constraintVertical_bias="0.5"
+        android:backgroundTint="#4169E1"
+        android:textColor="#FFFFFF" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

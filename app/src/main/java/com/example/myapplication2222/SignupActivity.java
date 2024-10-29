@@ -33,12 +33,13 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance(); // Firestore 인스턴스 초기화
+        db = FirebaseFirestore.getInstance();
         EditText editTextEmail = findViewById(R.id.editTextEmail);
         EditText editTextPassword = findViewById(R.id.editTextPassword);
         EditText editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
-        EditText editTextName = findViewById(R.id.editTextUserName); // 이름 입력 필드 추가
-        EditText editTextSSN = findViewById(R.id.editTextSSN); // 주민등록번호 입력 필드 추가
+        EditText editTextName = findViewById(R.id.editTextName);
+        EditText editTextSSN = findViewById(R.id.editTextSSN);
+        EditText editTextIssueDate = findViewById(R.id.editTextIssueDate);
         Button signupButton = findViewById(R.id.signup_button);
         progressBar = findViewById(R.id.progressBar);
 
@@ -54,16 +55,12 @@ public class SignupActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (isEditing) {
-                    return;
-                }
+                if (isEditing) return;
 
                 isEditing = true;
-
                 String original = s.toString();
-                String clean = original.replaceAll("[^\\d]", ""); // 숫자만 추출
+                String clean = original.replaceAll("[^\\d]", "");
 
-                // 형식을 유지하기 위한 처리
                 StringBuilder formatted = new StringBuilder();
                 if (clean.length() > 6) {
                     formatted.append(clean.substring(0, 6)).append("-");
@@ -76,23 +73,64 @@ public class SignupActivity extends AppCompatActivity {
 
                 editTextSSN.setText(formatted);
                 editTextSSN.setSelection(formatted.length());
+                isEditing = false;
+            }
+        });
 
+        // 발급일자 입력 형식 처리
+        editTextIssueDate.addTextChangedListener(new TextWatcher() {
+            private boolean isEditing = false;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isEditing) return;
+
+                isEditing = true;
+                String original = s.toString();
+                String clean = original.replaceAll("[^\\d]", "");
+                StringBuilder formatted = new StringBuilder();
+
+                if (clean.length() > 4) {
+                    formatted.append(clean.substring(0, 4)).append(".");
+                    if (clean.length() > 6) {
+                        formatted.append(clean.substring(4, 6)).append(".");
+                        if (clean.length() > 8) {
+                            formatted.append(clean.substring(6, Math.min(clean.length(), 8)));
+                        } else {
+                            formatted.append(clean.substring(6));
+                        }
+                    } else {
+                        formatted.append(clean.substring(4));
+                    }
+                } else {
+                    formatted.append(clean);
+                }
+
+                editTextIssueDate.setText(formatted);
+                editTextIssueDate.setSelection(formatted.length());
                 isEditing = false;
             }
         });
 
         // 회원가입 버튼 클릭 리스너 설정
-        signupButton.setOnClickListener(v -> createUser(editTextEmail, editTextPassword, editTextConfirmPassword, editTextName, editTextSSN));
+        signupButton.setOnClickListener(v -> createUser(editTextEmail, editTextPassword, editTextConfirmPassword, editTextName, editTextSSN, editTextIssueDate));
     }
 
-    private void createUser(EditText editTextEmail, EditText editTextPassword, EditText editTextConfirmPassword, EditText editTextName, EditText editTextSSN) {
+    private void createUser(EditText editTextEmail, EditText editTextPassword, EditText editTextConfirmPassword, EditText editTextName, EditText editTextSSN, EditText editTextIssueDate) {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
         String name = editTextName.getText().toString().trim();
         String ssn = editTextSSN.getText().toString().trim();
+        String issueDate = editTextIssueDate.getText().toString().trim();
 
-        // 이메일, 비밀번호, 이름 및 주민등록번호 유효성 검증
+        // 유효성 검사
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "유효한 이메일을 입력해주세요.", Toast.LENGTH_SHORT).show();
             return;
@@ -115,6 +153,11 @@ public class SignupActivity extends AppCompatActivity {
 
         if (ssn.isEmpty() || !ssn.matches("\\d{6}-\\d{7}")) {
             Toast.makeText(this, "유효한 주민등록번호를 입력해주세요. (형식: XXXXXX-XXXXXXX)", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (issueDate.isEmpty() || !issueDate.matches("\\d{4}\\.\\d{2}\\.\\d{2}")) {
+            Toast.makeText(this, "발급일자는 유효한 형식이어야 합니다. (형식: YYYY.MM.DD)", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -148,7 +191,7 @@ public class SignupActivity extends AppCompatActivity {
                                     });
 
                                     // Firestore에 사용자 정보 저장
-                                    saveUserToFirestore(user.getUid(), name, email, ssn);
+                                    saveUserToFirestore(user.getUid(), name, email, ssn, issueDate);
 
                                     // 로그인 화면으로 이동
                                     startActivity(new Intent(SignupActivity.this, LoginActivity.class));
@@ -168,12 +211,13 @@ public class SignupActivity extends AppCompatActivity {
                 });
     }
 
-    private void saveUserToFirestore(String userId, String name, String email, String ssn) {
+    private void saveUserToFirestore(String userId, String name, String email, String ssn, String issueDate) {
         // 사용자 정보를 Firestore에 저장하는 메서드
         Map<String, Object> user = new HashMap<>();
         user.put("name", name);
         user.put("email", email);
         user.put("ssn", ssn);
+        user.put("issueDate", issueDate); // 발급일자 추가
 
         db.collection("users").document(userId)
                 .set(user)
